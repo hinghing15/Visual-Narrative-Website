@@ -1,0 +1,84 @@
+* {
+	cursor:url('mice/mouse_default.png'),default;
+}
+
+body {
+	background:#DDDDDD;
+	
+}
+/* 3840 x 2160 */
+/* 1080p? */
+#wrapper {
+	width:720px;
+	height:405px;
+	border: 1px solid black;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-360px;
+	margin-top:-202px;
+	cursor:url('mice/mouse_default.png');
+}
+
+#picture {
+	background-color:white;
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+#navclicks {
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+
+.navclick {
+	position:absolute;
+	/*background:#FFDDFF;*/
+}
+
+#click-left {
+	width:100px;
+	height:100%;
+	left:-50px;
+	cursor:url('mice/mouse_left.png'),default;
+}
+
+#click-right {
+	width:100px;
+	height:100%;
+	right:-50px;
+	cursor:url('mice/mouse_right.png'),default;
+}
+
+#click-up {
+	height:100px;
+	width:100%;
+	top:-50px;
+	cursor:url('mice/mouse_up.png'),default;
+}
+
+#click-down {
+	height:100px;
+	width:100%;
+	bottom:-50px;
+	cursor:url('mice/mouse_down.png'),default;
+}
+
+#clickers {
+	position:absolute;
+	width:620px;
+	height:305px;
+	top:50px;
+	left:50px;
+	background:#DDFFFF;
+}
+
+.clicker {
+	position:absolute;
+	cursor:url('mice/mouse_click.png'),default;
+	margin-top:-50px;
+	margin-left:-50px;
+	background:#FFFFDD;
+}

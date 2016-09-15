@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>title lmao</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="script.js"></script>
+	<script>
+	$(document).ready(function(){
+
+		//change this to change the background image
+		// ======================
+		picture_url="wow.png";
+		// ======================
+
+
+
+
+		$('#picture').css("background","url("+picture_url+")");
+
+		//add_clicker(x,y,width,height,href);
+		// add_clicker(400,150,40,60,"shablammy");
+		// =====================================================
+
+			add_clicker(300,75,80,80,"shablammy");
+
+			
+		// =====================================================
+	});
+	</script>
+</head>
+<body>
+
+<div id="wrapper">
+	<div id="picture">pic</div>
+	<div id="navclicks">
+		<div class="navclick" id="click-left"></div>
+		<div class="navclick" id="click-right"></div>
+		<div class="navclick" id="click-up"></div>
+		<div class="navclick" id="click-down"></div>
+	</div>
+	<div id="clickers">
+		<!-- in here, there go all the custom clicky boxes for items and stuff -->
+		<!-- ================================================================= -->
+
+		<!-- <div class="clicker" style="width:40px;height:40px;top:150px;left:400px;"></div> -->
+
+		<!-- ================================================================= -->
+	</div>
+</div>
+
+</body>
+</html>
