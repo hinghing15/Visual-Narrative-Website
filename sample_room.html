@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>title lmao</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="script.js"></script>
+	<script>
+	$(document).ready(function(){
+
+		// change this to change the background image
+		// the dimensions should be 720px X 405px.
+		// ======================
+			picture_set("rooms/sampleroom.png");
+		// ======================
+
+
+		// add_clicker_link(x,y,width,height,href);
+		// add_clicker_link(400,150,40,60,"shablammy.html");
+		// add_clicker_js(200,500,80,30,"alert('why would you do this?');");
+		// =====================================================
+
+			// very simple example: you can't go through the door unless you
+			// pick up the key on the table.
+			add_clicker_js(535,174,75,140, "if(inventory_has_item('Key')) location.href='shablammy.html'; else subtitle_set('It\\'s locked.');");
+			add_clicker_js(350,225,30,15,"inventory_add_item('Key','items/key.png');");
+			
+		// =====================================================
+
+		// set where clicking on the side links makes you go
+			nav_left("");
+			nav_right("shablammy.html");
+			nav_up("");
+			nav_down("");
+
+
+	});
+	</script>
+	<script src="postscript.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+	<div id="picture"></div>
+	<div id="navclicks">
+		<div class="navclick" id="click-left"></div>
+		<div class="navclick" id="click-right"></div>
+		<div class="navclick" id="click-up"></div>
+		<div class="navclick" id="click-down"></div>
+	</div>
+	<div id="clickers">
+		<!-- in here, there go all the custom clicky boxes for items and stuff -->
+		<!-- this is handled with the javascript so DON'T PUT ANYTHING HERE. -->
+		<!-- ================================================================= -->
+
+		<!-- <div class="clicker" style="width:40px;height:40px;top:150px;left:400px;"></div> -->
+
+		<!-- ================================================================= -->
+	</div>
+	<div id="inventory"></div>
+	<div id="subtitle"></div>
+</div>
+
+</body>
+</html>
