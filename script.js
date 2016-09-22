@@ -2,6 +2,7 @@
 
 var picture_url = "";
 var inv = [];
+//set this variable to false to turn off all the debug stuff (clicker colors, inventory printout)
 var debug = true;
 
 //=============================================================
@@ -40,20 +41,6 @@ function print_inventory() {
 	});
 }
 
-function inventory_add_item(name, img_src){
-	var i = inv.findIndex(function(arg) { return arg[0] == name;});
-	inv.push([name,img_src]);
-	sessionStorage.inventory = JSON.stringify(inv);
-	print_inventory();
-}
-
-function inventory_remove_item(name){
-	var i = inv.findIndex(function(arg) { return arg[0] == name;});
-	inv.splice(i, 1);
-	sessionStorage.inventory = JSON.stringify(inv);
-	print_inventory();
-}
-
 function inventory_has_item(name){
 	var i = inv.findIndex(function(arg) { return arg[0] == name;});
 	if (i >= 0){
@@ -66,6 +53,25 @@ function inventory_has_item(name){
 		return false;
 	}
 }
+
+function inventory_add_item(name, img_src){
+	if(!inventory_has_item(name)){
+		var i = inv.findIndex(function(arg) { return arg[0] == name;});
+		inv.push([name,img_src]);
+		sessionStorage.inventory = JSON.stringify(inv);
+		print_inventory();
+	} else {
+		console.log(name+' already in inventory! Not added.');
+	}
+}
+
+function inventory_remove_item(name){
+	var i = inv.findIndex(function(arg) { return arg[0] == name;});
+	inv.splice(i, 1);
+	sessionStorage.inventory = JSON.stringify(inv);
+	print_inventory();
+}
+
 
 function inventory_clear(){
 	inv = [];
