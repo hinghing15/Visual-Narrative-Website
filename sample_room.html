@@ -17,13 +17,18 @@
 
 		// add_clicker_link(x,y,width,height,href);
 		// add_clicker_link(400,150,40,60,"shablammy.html");
-		// add_clicker_js(200,500,80,30,"alert('why would you do this?');");
+		// add_clicker_js(200,500,80,30,function(){ alert('why would you do this?'); });
 		// =====================================================
 
 			// very simple example: you can't go through the door unless you
 			// pick up the key on the table.
-			add_clicker_js(535,174,75,140, "if(inventory_has_item('Key')) location.href='shablammy.html'; else subtitle_set('It\\'s locked.');");
-			add_clicker_js(350,225,30,15,"inventory_add_item('Key','items/key.png');");
+			add_clicker_js(535,174,75,140, function(){
+				if(inventory_has_item('Key')) location.href='shablammy.html';
+				else subtitle_set("It's locked.");
+			});
+			add_clicker_js(350,225,30,15,function(){
+				inventory_add_item('Key','items/key.png');
+			});
 			
 		// =====================================================
 

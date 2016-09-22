@@ -12,7 +12,8 @@ function add_clicker_link(x, y, width, height, href){
 }
 
 function add_clicker_js(x, y, width, height, js){
-	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;' onclick=\"javascript:"+js+"\"></div>");
+	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div>");
+	clicker.click(js);
 	$('#clickers').append(clicker);
 }
 
