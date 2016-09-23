@@ -70,6 +70,24 @@ Sets the background picture to `url`. Used at the creation of the room, but can 
 
 These functions set what room the left/right/top/bottom clickable areas send the player to.
 
+
+
+#### `new Sound(src)` 
+
+Create a Sound object. with the source `src`.
+
+##### `void Sound.play()`
+
+Play the sound, once.
+
+##### `void Sound.playLooping()`
+
+Play the sound on repeat.
+
+##### `void Sound.pause()`
+
+Stop the sound.
+
 ---
 
 ## Debug

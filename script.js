@@ -118,6 +118,29 @@ function nav_down(link){
 	nav_make(2,link);
 }
 
+function Sound(src){
+	this.Sound = document.createElement("audio");
+	this.Sound.src = src;
+	this.Sound.setAttribute("preload", "auto");
+	this.Sound.setAttribute("controls", "none");
+	this.Sound.style.display = "none";
+	document.body.appendChild(this.Sound);
+
+	this.play = function(){
+		this.Sound.loop = false;
+		this.Sound.play();
+	}
+
+	this.playLooping = function(){
+		this.Sound.loop = true;
+		this.Sound.play();
+	}
+
+	this.pause = function(){
+		this.Sound.pause();
+	}
+
+}
 
 
 $(document).ready(function(){

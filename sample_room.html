@@ -22,12 +22,19 @@
 
 			// very simple example: you can't go through the door unless you
 			// pick up the key on the table.
+
+			wowSound = new Sound("sounds/wow.mp3");
+			looperWowSound = new Sound("sounds/wow.mp3");
+
+			looperWowSound.playLooping();
+
 			add_clicker_js(535,174,75,140, function(){
 				if(inventory_has_item('Key')) location.href='shablammy.html';
 				else subtitle_set("It's locked.");
 			});
 			add_clicker_js(350,225,30,15,function(){
 				inventory_add_item('Key','items/key.png');
+				wowSound.play();
 			});
 			
 		// =====================================================
