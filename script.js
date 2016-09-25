@@ -7,15 +7,27 @@ var debug = true;
 
 //=============================================================
 
-function add_clicker_link(x, y, width, height, href){
+/* function add_clicker_link(x, y, width, height, href){
 	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;' onclick=\"location.href='"+href+"'\"></div>");
 	$('#clickers').append(clicker);
-}
+} */
 
-function add_clicker_js(x, y, width, height, js){
+/* function add_clicker_js(x, y, width, height, js){
 	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div>");
 	clicker.click(js);
 	$('#clickers').append(clicker);
+} */
+
+function add_clicker(x, y, width, height, id, picture_src, js){
+	var clicker = $("<div class='clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+");'></div>");
+	clicker.click(js);
+	$('#clickers').append(clicker);
+}
+
+function remove_clicker(id){
+	if($("#"+id).hasClass("clicker")){
+		$("#"+id).remove();
+	}
 }
 
 function print_inventory() {

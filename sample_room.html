@@ -11,31 +11,31 @@
 		// change this to change the background image
 		// the dimensions should be 720px X 405px.
 		// ======================
-			picture_set("rooms/sampleroom.png");
+			picture_set("rooms/sampleroom_new.png");
 		// ======================
 
-
-		// add_clicker_link(x,y,width,height,href);
-		// add_clicker_link(400,150,40,60,"shablammy.html");
-		// add_clicker_js(200,500,80,30,function(){ alert('why would you do this?'); });
+		// clickerinos kids
 		// =====================================================
 
 			// very simple example: you can't go through the door unless you
 			// pick up the key on the table.
 
-			wowSound = new Sound("sounds/wow.mp3");
-			looperWowSound = new Sound("sounds/wow.mp3");
+			wowSound = new Sound("sounds/Interaction1.mp3");
+			//looperWowSound = new Sound("sounds/wow.mp3");
 
-			looperWowSound.playLooping();
+			//looperWowSound.playLooping();
 
-			add_clicker_js(535,174,75,140, function(){
+			add_clicker(535,174,75,140,"clicker_door", "", function(){
 				if(inventory_has_item('Key')) location.href='shablammy.html';
 				else subtitle_set("It's locked.");
 			});
-			add_clicker_js(350,225,30,15,function(){
-				inventory_add_item('Key','items/key.png');
-				wowSound.play();
-			});
+			if(!inventory_has_item('Key')){
+				add_clicker(350,225,30,15,"clicker_key", "clickers/clicker_key.png", function(){
+					inventory_add_item('Key','items/key.png');
+					remove_clicker("clicker_key");
+					wowSound.play();
+				});
+			}
 			
 		// =====================================================
 

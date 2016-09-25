@@ -6,27 +6,41 @@ Quick documentation all the functions and how to use them. I think every one is 
 
 
 
-#### `void add_clicker_link(x, y, width, height, href)`
+<u>__DEPRECATED__</u> 
 
-Creates a clickable area that is a link to a different webpage (room).
+#### ~~`void add_clicker_link(x, y, width, height, href)`~~
 
-Its position is determined by `x` and `y`, and its size by `width` and `height`.
+~~Creates a clickable area that is a link to a different webpage (room).~~
 
-It is positioned relative to the top-left corner of the room image.
+~~Its position is determined by `x` and `y`, and its size by `width` and `height`.~~
 
-The `href` is the url of the webpage, something like `shablammy.html`, or `room2.html`, or even a real url like `http://johncena.gov`, though I don't know how we'd use that.
+~~It is positioned relative to the top-left corner of the room image.~~
+
+~~The `href` is the url of the webpage, something like `shablammy.html`, or `room2.html`, or even a real url like `http://johncena.gov`, though I don't know how we'd use that.~~
 
 
 
-#### `void add_clicker_js(x, y, width, height, js)`
+#### ~~`void add_clicker_js(x, y, width, height, js)`~~
 
-Creates a clickable area that executes some javascript.
+~~Creates a clickable area that executes some javascript.~~
 
-Its position is determined by `x` and `y`, and its size by `width` and `height`.
+~~Its position is determined by `x` and `y`, and its size by `width` and `height`.~~
 
-It is positioned relative to the top-left corner of the room image.
+~~It is positioned relative to the top-left corner of the room image.~~
 
-The `js` is the script you want to run. It can do pretty much anything, but in the example room I have it check if you have the key in your inventory before you can open the door.
+~~The `js` is the script you want to run. It can do pretty much anything, but in the example room I have it check if you have the key in your inventory before you can open the door.~~
+
+
+
+#### `void add_clicker(x, y, width, height, id, picture_src, js)`
+
+The new clicker adding method. create a clicker at `x`, `y`, with size `width`, `height`.
+
+It has an id (used for coding and logic), a background picture (optional!), and a function that executes on click.
+
+#### `void remove_clicker(id)`
+
+Removes the clicker that has the specified id. cannot be used to remove non-clicker elements (a bit of a no-brainer, but worth remembering)
 
 
 
@@ -110,4 +124,3 @@ but be really careful about committing that tiny change to the github 'cause it 
 
 ## Todo
 
-- make it so you can't add duplicate items to the inventory

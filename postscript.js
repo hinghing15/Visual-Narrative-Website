@@ -13,7 +13,8 @@ $(document).ready(function(){
 	inventory_remove_item("It's an inventory item!");*/
 	print_inventory();
 	if(debug){
-		$('.clicker').css('background','#FFFF77');
+		$('.clicker').css('border-bottom','1px dashed red');
+		$('.clicker').css('border-right','1px dashed red');
 	}
 });
 

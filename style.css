@@ -86,7 +86,9 @@ body {
 	margin-top:-50px;
 	margin-left:-50px;
 	/*background:#FFFF77;*/
-	opacity:0.5;
+	opacity:1;
+	background-repeat: no-repeat;
+	image-rendering: pixelated;
 }
 
 
