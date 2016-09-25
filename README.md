@@ -102,6 +102,32 @@ Play the sound on repeat.
 
 Stop the sound.
 
+
+
+#### `void show_inline_view(picture_src, on_load)`
+
+show an inline view with the specified picture as the background.
+
+executes the `on_load` function every time it loads. use this to create the inline clickers for it with `add_inline_clicker()`
+
+
+
+#### `void hide_inline_view()`
+
+hides the current inline view. clears all inline clickers.
+
+
+
+#### `void add_inline_clicker(x, y, width, height, id, picture_src, js)`
+
+same functionality as `add_clicker()`, but for the inline view. use this in the on_load function for show_inline_view.
+
+
+
+### `void remove_inline_clicker(id)`
+
+same functionality as `remove_clicker()` but for the inline view. note: `hide_inline_view()` removes every inline clicker automatically.
+
 ---
 
 ## Debug

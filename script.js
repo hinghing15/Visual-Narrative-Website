@@ -155,6 +155,69 @@ function Sound(src){
 }
 
 
+// inline view functions?????
+
+function show_inline_view(picture_src, on_load){
+	var bgimg = new Image();
+	//var inl = $("#inline");
+	bgimg.onload = function(){
+		//console.log("image LOADED: " + this.width + " x " + this.height);
+		$("#inline").css("background-image", "url("+this.src+")");
+		$("#inline").css("width", this.width+"px");
+		$("#inline").css("height", this.height+"px");
+		if(this.height < 405){
+			$("#inline").css("bottom", "50%");
+			var halverh = this.height/2;
+			$("#inline").css("margin-bottom", "-"+halverh+"px");
+		} else {
+			$("#inline").css("bottom", "0px");
+			$("#inline").css("margin-bottom", "0px");
+		}
+		var halverw = this.width/2;
+		$("#inline").css("margin-left","-"+halverw+"px");
+	};
+	bgimg.src = picture_src;
+	on_load();
+	//console.log("inline SHOWED.");
+	$("#inline").css("visibility", "visible");
+	$("#clickers").css("visibility", "hidden");
+	$("#navclicks").css("visibility", "hidden");
+	$(".inline-dismisser").css("visibility", "visible");
+
+
+	$(".inline-dismisser").click(function(){
+		hide_inline_view();
+	});
+
+}
+
+
+function hide_inline_view(){
+	//console.log("inline HID.");
+	$("#inline").css("visibility", "hidden");
+	$("#inline-clickers").empty();
+
+	$("#clickers").css("visibility", "visible");
+	$("#navclicks").css("visibility", "visible");
+	$(".inline-dismisser").css("visibility", "hidden");
+}
+
+
+function add_inline_clicker(x, y, width, height, id, picture_src, js){
+	var clicker = $("<div class='inline-clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+");'></div>");
+	clicker.click(js);
+	$('#inline-clickers').append(clicker);
+	console.log("inline clicker ADDED.");
+}
+
+function remove_inline_clicker(id){
+	if($("#"+id).hasClass("inline-clicker")){
+		$("#"+id).remove();
+	}
+}
+
+
+
 $(document).ready(function(){
 	if (sessionStorage.inventory){
 		inv = JSON.parse(sessionStorage.inventory);

@@ -15,6 +15,9 @@ $(document).ready(function(){
 	if(debug){
 		$('.clicker').css('border-bottom','1px dashed red');
 		$('.clicker').css('border-right','1px dashed red');
+
+		$('.inline-clicker').css('border-bottom','1px dashed green');
+		$('.inline-clicker').css('border-right','1px dashed green');
 	}
 });
 

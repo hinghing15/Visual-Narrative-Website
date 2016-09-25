@@ -92,6 +92,48 @@ body {
 }
 
 
+#inline {
+	position: absolute;
+	width: 0px;
+	height: 0px; /*WIDTH AND HEIGHT WILL BE SET IN JAVASCRIPT */
+	left:50%;
+	bottom:0px;
+
+	visibility: visible;
+	image-rendering:pixelated;
+}
+
+#inline-clickers {
+	position:absolute;
+	width:100%;
+	height:100%;
+	/*background:#FF9999;*/
+}
+
+.inline-clicker {
+	position:absolute;
+	cursor:url('mice/mouse_click.png'),default;
+	background-repeat: no-repeat;
+	image-rendering: pixelated;
+
+	border-bottom: 1px dashed green;
+	border-right: 1px dashed green;
+}
+
+.inline-dismisser {
+	position:absolute;	
+	width:100%;
+	height:100%;
+	cursor:url('mice/mouse_default.png'),default;
+	/**/
+	/*background:#FFDDDD;*/
+
+	visibility:hidden;
+}
+
+
+
+
 #inventory {
 	position:absolute;
 	top:405px;
