@@ -16,13 +16,15 @@
 		// change this to change the background image
 		// the dimensions should be 720px X 405px.
 		// ======================
-			picture_set("");
+			picture_set("rooms/hallway.png");
 		// ======================
 
 		// clickers go HERE
 		// =====================================================
 
-			
+			add_clicker(300,50,130,230,"clicker_goforward", "", function(){
+				location.href="puzzleroom_n.html";
+			});
 			
 		// =====================================================
 
@@ -30,7 +32,7 @@
 			nav_left("");
 			nav_right("");
 			nav_up("");
-			nav_down("");
+			nav_down("index.html");
 
 
 	});

@@ -16,13 +16,19 @@
 		// change this to change the background image
 		// the dimensions should be 720px X 405px.
 		// ======================
-			picture_set("");
+			picture_set("rooms/basement_hallway.png");
 		// ======================
 
 		// clickers go HERE
 		// =====================================================
 
-			
+			add_clicker(5,5,120,90,"clicker_goupstairs", "", function(){
+				location.href='puzzleroom_e.html';
+			});
+
+			add_clicker(355,170,35,70,"clicker_gobasement", "", function(){
+				location.href='basement.html';
+			});
 			
 		// =====================================================
 
