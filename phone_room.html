@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>&lrm;</title> <link rel="icon" href="favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="resources/script.js"></script>
+	<script>
+	$(document).ready(function(){
+
+		// change this to change the background image
+		// the dimensions should be 720px X 405px.
+		// ======================
+			picture_set("rooms/sampleroom.png");
+		// ======================
+
+		// clickerinos kids
+		// =====================================================
+
+			// very simple example: you can't go through the door unless you
+			// pick up the key on the table.
+
+			wowSound = new Sound("sounds/Interaction1.mp3");
+			//looperWowSound = new Sound("sounds/wow.mp3");
+
+			//looperWowSound.playLooping();
+
+			add_clicker(535,174,75,140,"clicker_door", "", function(){
+				if(inventory_has_item('Key')) location.href='shablammy.html';
+				else subtitle_set("It's locked.");
+			});
+			if(!inventory_has_item('Key')){
+				add_clicker(350,225,30,15,"clicker_key", "clickers/clicker_key.png", function(){
+					inventory_add_item('Key','items/key.png');
+					remove_clicker("clicker_key");
+					wowSound.play();
+				});
+			}
+
+			add_clicker(50,100,50,50,"clicker_phone", "clickers/bigphone.gif", function(){
+				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
+					add_inline_clicker(85,60,60,60,"phone_1","",function(){
+						console.log("you clicked phone_1");
+					});
+				});
+			});
+
+			add_clicker(50,200,50,50,"clicker_inlieifyer2", "clickers/clicker_button.png", function(){
+				show_inline_view("inlines/inline_sample2.png", function(){
+					add_inline_clicker(25,25,50,50,"hehexd2","",function(){
+						console.log("you clicked the tiny thing clicker thing, HOOO");
+					});
+				});
+			});
+
+		// =====================================================
+
+		// set where clicking on the side links makes you go
+			nav_left("");
+			nav_right("shablammy.html");
+			nav_up("");
+			nav_down("");
+
+
+	});
+	</script>
+	<script src="resources/postscript.js"></script>
+</head>
+<body>
+
+<div class="inline-dismisser"></div>
+
+<div id="wrapper">
+	<div id="picture"></div>
+	<div id="navclicks">
+		<div class="navclick" id="click-up"></div>
+		<div class="navclick" id="click-down"></div>
+		<div class="navclick" id="click-left"></div>
+		<div class="navclick" id="click-right"></div>
+	</div>
+	<div id="clickers">
+		<!-- in here, there go all the custom clicky boxes for items and stuff -->
+		<!-- this is handled with the javascript so DON'T PUT ANYTHING HERE. -->
+		<!-- ================================================================= -->
+
+		<!-- <div class="clicker" style="width:40px;height:40px;top:150px;left:400px;"></div> -->
+
+		<!-- ================================================================= -->
+	</div>
+	<div class="inline-dismisser"></div>
+	<div id="inline">
+		<div id="inline-clickers">
+			<!-- in here, go even more clickers for each inline view. -->
+		</div>
+	</div>
+	<div id="inventory"></div>
+	<div id="subtitle"></div>
+</div>
+
+</body>
+</html>
