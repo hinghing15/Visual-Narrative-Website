@@ -3,7 +3,7 @@
 }
 
 body {
-	background:#DDDDDD;
+	background:#101010;
 	
 }
 /* 3840 x 2160 */
@@ -11,7 +11,7 @@ body {
 #wrapper {
 	width:720px;
 	height:405px;
-	border: 1px solid black;
+	border: 1px solid white;
 	position:absolute;
 	left:50%;
 	top:50%;

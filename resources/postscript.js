@@ -6,18 +6,28 @@
 
 $(document).ready(function(){
 
+	//musics
+	var loopingmusic = new Sound('sounds/BackgroundMusicAmbience.mp3');
+	loopingmusic.setVolume(0.3);
+	// loopingmusic.setRate(1);
+	
+	//commented out to mute during development. uncomment to have playing ambience.
+	loopingmusic.playLooping();
+
 	if(sessionStorage.beingChased == null){
 		sessionStorage.beingChased = 0;
 		console.log('initializing beingChased');
 	}
 
 	if(sessionStorage.beingChased == 1){
-		background_set("#ff0000");
+		background_set("#331010");
 		setInterval(function(){
 			$('#wrapper').css({
-				'margin-top': -202+(3-6*Math.random()),
-				'margin-left': -360+(3-6*Math.random())
+				'margin-top': -202+(2-4*Math.random()),
+				'margin-left': -360+(2-4*Math.random())
 			});
+			loopingmusic.setVolume(0.5);
+			loopingmusic.setRate(3);
 		}, 30);
 	} else if(sessionStorage.beingChased == 2){
 		$('#wrapper').css({
@@ -36,8 +46,9 @@ $(document).ready(function(){
 		    	randomString += alphabet.substring(randomPoz,randomPoz+1);
 		    }
 		    document.title = randomString;
+		    loopingmusic.setVolume(1);
+			loopingmusic.setRate(4);
 		}, 30);
-
 	}
 
 
