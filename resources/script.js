@@ -97,11 +97,18 @@ function subtitle_set(message){
 
 function picture_set(url){
 	picture_url=url;
-	$('#picture').css("background","url("+picture_url+")");
+	$('#picture').css({
+		"background":"url("+picture_url+")",
+		"background-size":"contain"
+	});
 }
 
 function background_set(color){
 	$('body').css("background", color);
+}
+
+function border_set(color){
+	$('#wrapper').css("border","1px solid "+color);
 }
 
 function nav_make(which,link){
@@ -151,6 +158,7 @@ function Sound(src){
 
 	this.playLooping = function(){
 		this.Sound.loop = true;
+		this.Sound.currentTime = this.Sound.duration * Math.random();
 		this.Sound.play();
 	}
 

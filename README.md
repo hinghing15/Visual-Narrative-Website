@@ -6,30 +6,6 @@ Quick documentation all the functions and how to use them. I think every one is 
 
 
 
-<u>__DEPRECATED__</u> 
-
-#### ~~`void add_clicker_link(x, y, width, height, href)`~~
-
-~~Creates a clickable area that is a link to a different webpage (room).~~
-
-~~Its position is determined by `x` and `y`, and its size by `width` and `height`.~~
-
-~~It is positioned relative to the top-left corner of the room image.~~
-
-~~The `href` is the url of the webpage, something like `shablammy.html`, or `room2.html`, or even a real url like `http://johncena.gov`, though I don't know how we'd use that.~~
-
-
-
-#### ~~`void add_clicker_js(x, y, width, height, js)`~~
-
-~~Creates a clickable area that executes some javascript.~~
-
-~~Its position is determined by `x` and `y`, and its size by `width` and `height`.~~
-
-~~It is positioned relative to the top-left corner of the room image.~~
-
-~~The `js` is the script you want to run. It can do pretty much anything, but in the example room I have it check if you have the key in your inventory before you can open the door.~~
-
 
 
 #### `void add_clicker(x, y, width, height, id, picture_src, js)`
@@ -80,6 +56,18 @@ Sets the background picture to `url`. Used at the creation of the room, but can 
 
 
 
+#### `void background_set(color)`
+
+Sets the background color, outside of the viewing area.
+
+
+
+#### `void border_set(color)`
+
+Sets the border of the viewing area to a color. best used in conjunction with `background_set` for max cool
+
+
+
 #### `void nav_left(link)`/ `nav_right(link)`/ `nav_up(link)`/  `nav_down(link)`
 
 These functions set what room the left/right/top/bottom clickable areas send the player to.
@@ -96,7 +84,7 @@ Play the sound, once.
 
 ##### `void Sound.playLooping()`
 
-Play the sound on repeat.
+Play the sound on repeat. NOTE: starts it from a RANDOM point, to make room transitions less repetitive
 
 ##### `void Sound.pause()`
 

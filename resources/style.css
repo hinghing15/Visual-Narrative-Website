@@ -18,13 +18,14 @@ body {
 	margin-left:-360px;
 	margin-top:-202px;
 	cursor:url('../mice/mouse_default.png');
+	transform-origin: 50% 50%;
 }
 
 #picture {
 	background-color:white;
 	position:absolute;
-	width:100%;
-	height:100%;
+	width:720px;
+	height:405px;
 	image-rendering: pixelated;
 }
 
