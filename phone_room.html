@@ -19,39 +19,121 @@
 
 			// very simple example: you can't go through the door unless you
 			// pick up the key on the table.
-
-			wowSound = new Sound("sounds/Interaction1.mp3");
-			//looperWowSound = new Sound("sounds/wow.mp3");
-
-			//looperWowSound.playLooping();
-
-			add_clicker(535,174,75,140,"clicker_door", "", function(){
-				if(inventory_has_item('Key')) location.href='shablammy.html';
-				else subtitle_set("It's locked.");
-			});
-			if(!inventory_has_item('Key')){
-				add_clicker(350,225,30,15,"clicker_key", "clickers/clicker_key.png", function(){
-					inventory_add_item('Key','items/key.png');
-					remove_clicker("clicker_key");
-					wowSound.play();
-				});
-			}
+			
+			//Phone button sounds
+			phoneSound_1 = new Sound("sounds/Phone1.mp3")
+			phoneSound_2 = new Sound("sounds/Phone2.mp3")
+			phoneSound_3 = new Sound("sounds/Phone3.mp3")
+			phoneSound_4 = new Sound("sounds/Phone4.mp3")
+			phoneSound_5 = new Sound("sounds/Phone5.mp3")
+			phoneSound_6 = new Sound("sounds/Phone6.mp3")
+			phoneSound_7 = new Sound("sounds/Phone7.mp3")
+			phoneSound_8 = new Sound("sounds/Phone8.mp3")
+			phoneSound_9 = new Sound("sounds/Phone9.mp3")
+			phoneSound_0 = new Sound("sounds/Phone0.mp3")
+			//phoneSound_star = new Sound("sounds/PhoneStar.mp3")
+			phoneSound_pound = new Sound("sounds/PhonePound.mp3")
+			
+			correctOrder = [5,7,0,0,5];
+			correctSounds = [phoneSound_5,phoneSound_7,phoneSound_0,phoneSound_0,phoneSound_5];
+			
+			currentOrder = [];
+			
+			enteredCorrect = false;
+			
+			//Phone interaction sounds
+			phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3")
 
 			add_clicker(50,100,50,50,"clicker_phone", "clickers/bigphone.gif", function(){
+			
+			
+				if(!enteredCorrect)
+				{
+					if(phoneSound_dialtone.paused)
+						phoneSound_dialtone.playLooping();
+				}
+				else
+				{
+					//playSoundsInOrder(this,correctSounds);
+				}
+			
 				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
 					add_inline_clicker(85,60,60,60,"phone_1","",function(){
 						console.log("you clicked phone_1");
+						stopSound(phoneSound_dialtone);
+						checkOrder(1);
+						phoneSound_1.play();
+
 					});
+					add_inline_clicker(165,60,60,60,"phone_2","",function(){
+						console.log("you clicked phone_2");
+						stopSound(phoneSound_dialtone);
+						checkOrder(2);
+						phoneSound_2.play();
+					});
+					add_inline_clicker(245,60,60,60,"phone_3","",function(){
+						console.log("you clicked phone_3");
+						stopSound(phoneSound_dialtone);						
+						checkOrder(3);
+						phoneSound_3.play();
+					});
+					add_inline_clicker(85,135,60,60,"phone_4","",function(){
+						console.log("you clicked phone_4");
+						stopSound(phoneSound_dialtone);
+						checkOrder(4);
+						phoneSound_4.play();
+					});
+					add_inline_clicker(165,135,60,60,"phone_5","",function(){
+						console.log("you clicked phone_5");
+						stopSound(phoneSound_dialtone);
+						checkOrder(5);
+						phoneSound_5.play();
+					});
+					add_inline_clicker(245,135,60,60,"phone_6","",function(){
+						console.log("you clicked phone_6");
+						stopSound(phoneSound_dialtone);
+						checkOrder(6);						
+						phoneSound_6.play();
+					});					
+					add_inline_clicker(85,210,60,60,"phone_7","",function(){
+						console.log("you clicked phone_7");
+						checkOrder(7);
+						stopSound(phoneSound_dialtone);
+						phoneSound_7.play();
+					});
+					add_inline_clicker(165,210,60,60,"phone_8","",function(){
+						console.log("you clicked phone_8");
+						checkOrder(8);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_8.play();
+					});
+					add_inline_clicker(245,210,60,60,"phone_9","",function(){
+						console.log("you clicked phone_9");
+						stopSound(phoneSound_dialtone);
+						checkOrder(9);						
+						phoneSound_9.play();
+					});	
+					add_inline_clicker(85,285,60,60,"phone_*","",function(){
+						console.log("you clicked phone_*");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						//phoneSound_star.play();
+					});
+					add_inline_clicker(165,285,60,60,"phone_0","",function(){
+						console.log("you clicked phone_0");
+						checkOrder(0);
+						stopSound(phoneSound_dialtone);
+						phoneSound_0.play();
+					});
+					add_inline_clicker(245,285,60,60,"phone_#","",function(){
+						console.log("you clicked phone_#");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_pound.play();
+					});					
 				});
 			});
 
-			add_clicker(50,200,50,50,"clicker_inlieifyer2", "clickers/clicker_button.png", function(){
-				show_inline_view("inlines/inline_sample2.png", function(){
-					add_inline_clicker(25,25,50,50,"hehexd2","",function(){
-						console.log("you clicked the tiny thing clicker thing, HOOO");
-					});
-				});
-			});
 
 		// =====================================================
 
@@ -60,6 +142,108 @@
 			nav_right("shablammy.html");
 			nav_up("");
 			nav_down("");
+		
+		//http://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript		
+		if(Array.prototype.equals)
+			console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+		// attach the .equals method to Array's prototype to call it on any array
+		Array.prototype.equals = function (array) 
+		{
+			// if the other array is a falsy value, return
+			if (!array)
+				return false;
+
+			// compare lengths - can save a lot of time 
+			if (this.length != array.length)
+				return false;
+
+			for (var i = 0, l=this.length; i < l; i++) 
+			{
+				// Check if we have nested arrays
+				if (this[i] instanceof Array && array[i] instanceof Array) 
+				{
+					// recurse into the nested arrays
+					if (!this[i].equals(array[i]))
+						return false;       
+				}           
+				else if (this[i] != array[i]) 
+				{ 
+					// Warning - two different object instances will never be equal: {x:20} != {x:20}
+					return false;   
+				}           
+			}       
+			return true;
+		}
+		// Hide method from for-in loops
+		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+			
+		function stopSound(snd)
+		{
+			if(!snd.paused)
+			{
+				snd.pause();
+				snd = 0;
+			}
+		};
+		
+		function checkOrder(pressed)
+		{
+			if(!enteredCorrect)
+			{
+				currentOrder.push(pressed);
+			
+				//If order is long enough check if right or wrong
+				if(currentOrder.length >= correctOrder.length)
+				{
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						//playSoundsInOrder(correctSounds);
+						enteredCorrect = true;
+					}
+					else
+					{
+						console.log("incorrect");
+						if(phoneSound_dialtone.paused)
+							phoneSound_dialtone.playLooping();
+						
+						currentOrder = [];
+					}		
+				}
+				console.log(currentOrder);
+			}
+		}
+		
+		function playSoundsInOrder()
+		{
+			//whatever is your audio element
+			var container = document.getElementById('container'); 
+
+			//play files in a row
+			new Mp3Queue(container, correctSounds);
+		}
+		
+		//http://stackoverflow.com/questions/16916896/playing-two-files-in-a-row-in-javascript
+		var Mp3Queue = function(container, files) {
+			var index = 1;
+			if(!container || !container.tagName || container.tagName !== 'AUDIO')throw 'Invalid container';
+			if(!files || !files.length)throw 'Invalid files array';        
+
+			var playNext = function() {
+				if(index < files.length) {
+					container.src = files[index];
+					index += 1;
+				} else {
+					container.removeEventListener('ended', playNext, false);
+				}
+			};
+
+			container.addEventListener('ended', playNext);
+
+			container.src = files[0];
+		};
+		
+		
 
 
 	});
