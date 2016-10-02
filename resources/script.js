@@ -5,6 +5,7 @@ var inv = [];
 //set this variable to false to turn off all the debug stuff (clicker colors, inventory printout)
 var debug = true;
 
+
 //=============================================================
 
 /* function add_clicker_link(x, y, width, height, href){
@@ -144,12 +145,15 @@ function nav_down(link){
 }
 
 function Sound(src){
-	this.Sound = document.createElement("audio");
+	//this.Sound = document.createElement("audio");
+	this.Sound = new Audio();
 	this.Sound.src = src;
 	this.Sound.setAttribute("preload", "auto");
 	this.Sound.setAttribute("controls", "none");
 	this.Sound.style.display = "none";
 	document.body.appendChild(this.Sound);
+
+	//GLOBAL VOLUME VARIABLE. i have it kinda low rn.
 
 	this.play = function(){
 		this.Sound.loop = false;
@@ -158,12 +162,24 @@ function Sound(src){
 
 	this.playLooping = function(){
 		this.Sound.loop = true;
-		this.Sound.currentTime = this.Sound.duration * Math.random();
-		this.Sound.play();
+		this.Sound.addEventListener('loadedmetadata', function() {
+			console.log(this.duration);
+			this.currentTime = Math.random() * this.duration;
+			this.play();	
+		});
+		
 	}
 
 	this.pause = function(){
 		this.Sound.pause();
+	}
+
+	this.setVolume = function(vol){
+		this.Sound.volume = vol;
+	}
+
+	this.setRate = function(rate){
+		this.Sound.playbackRate = rate;
 	}
 
 }
