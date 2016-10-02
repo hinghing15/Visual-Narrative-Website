@@ -18,7 +18,7 @@ $(document).ready(function(){
 				'margin-top': -202+(3-6*Math.random()),
 				'margin-left': -360+(3-6*Math.random())
 			});
-		}, 3);
+		}, 30);
 	} else if(sessionStorage.beingChased == 2){
 		$('#wrapper').css({
 			'transform':'scale(1.25, 1.25)'
@@ -36,7 +36,7 @@ $(document).ready(function(){
 		    	randomString += alphabet.substring(randomPoz,randomPoz+1);
 		    }
 		    document.title = randomString;
-		}, 3);
+		}, 30);
 
 	}
 

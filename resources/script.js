@@ -19,7 +19,7 @@ var debug = true;
 } */
 
 function add_clicker(x, y, width, height, id, picture_src, js){
-	var clicker = $("<div class='clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+");'></div>");
+	var clicker = $("<div class='clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+"); background-size:contain;'></div>");
 	clicker.click(js);
 	$('#clickers').append(clicker);
 }
@@ -194,7 +194,7 @@ function show_inline_view(picture_src, on_load){
 	on_load();
 	//console.log("inline SHOWED.");
 	$("#inline").css("visibility", "visible");
-	$("#clickers").css("visibility", "hidden");
+	$("#clickers").css("pointer-events", "none");
 	$("#navclicks").css("visibility", "hidden");
 	$(".inline-dismisser").css("visibility", "visible");
 
@@ -211,7 +211,7 @@ function hide_inline_view(){
 	$("#inline").css("visibility", "hidden");
 	$("#inline-clickers").empty();
 
-	$("#clickers").css("visibility", "visible");
+	$("#clickers").css("pointer-events", "all");
 	$("#navclicks").css("visibility", "visible");
 	$(".inline-dismisser").css("visibility", "hidden");
 	
@@ -220,6 +220,7 @@ function hide_inline_view(){
 
 function add_inline_clicker(x, y, width, height, id, picture_src, js){
 	var clicker = $("<div class='inline-clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+");'></div>");
+	
 	clicker.click(js);
 	$('#inline-clickers').append(clicker);
 	console.log("inline clicker ADDED.");
