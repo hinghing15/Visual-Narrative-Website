@@ -100,6 +100,10 @@ function picture_set(url){
 	$('#picture').css("background","url("+picture_url+")");
 }
 
+function background_set(color){
+	$('body').css("background", color);
+}
+
 function nav_make(which,link){
 	//0 1 2 3
 	var wew = ['click-up','click-right','click-down','click-left'];
