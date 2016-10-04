@@ -12,7 +12,7 @@ $(document).ready(function(){
 	// loopingmusic.setRate(1);
 	
 	//commented out to mute during development. uncomment to have playing ambience.
-	loopingmusic.playLooping();
+	//loopingmusic.playLooping();
 
 	if(sessionStorage.beingChased == null){
 		sessionStorage.beingChased = 0;

@@ -22,9 +22,90 @@
 		// clickers go HERE
 		// =====================================================
 
+			// NOTE:
+			// THE SAFE HIDDEN BEHIND THE PICTURE IS FEATURE COMPLETE. IT DOES NOT NEED CHANGING.
+			// THE ONLY THING THAT WOULD NEED CHANGING IS THE ACTUAL CODE FOR THE SAFE ITSELF.
+
+			var sc = new Sound('sounds/PasswordCorrect.mp3');
+			var opensound = new Sound('sounds/SafeUnlock&Open.mp3');
+
+
+			if(sessionStorage.safe_revealed == null ) {sessionStorage.safe_revealed = "false"; }
+
+			function move_painting(){
+				if(sessionStorage.safe_revealed == "false"){
+					//$('#clicker_cagedbird').css({'top':'36px', 'left':'242px'});
+				} else {
+					$('#clicker_cagedbird').css({'top':'210px', 'left':'80px'});
+				}
+			}
+
+			function open_safe(){
+				opensound.play();
+				show_inline_view("clickers/SafeOpen.png", function(){
+					add_inline_clicker(100,100,111,44,"clicker_basementkey","clickers/Key.png", function(){
+						inventory_add_item("Basement Key", "clickers/Key.png");
+						remove_inline_clicker("clicker_basementkey");
+						remove_clicker("clicker_safe");
+						add_clicker(242,36,93,93,"clicker_safe_emptied","clickers/SafeOpen.png", null);
+					});
+				});
+			}
+
+
+			if( !inventory_has_item("Basement Key") ) {
+
+				add_clicker(242,36,93,93,"clicker_safe","clickers/SafeLocked.png", function(){
+					show_inline_view("clickers/SafeLocked.png",function(){
+						console.log("you clicked the SAFE. nice job");
+						var password = [5, 3, 4, 6];
+						var corrects = 0;
+						function click_pad(n){
+							sc.play();
+							if(n == password[corrects]){
+								corrects++;
+							} else {
+								corrects = 0;
+							}
+							if(corrects == password.length){
+								hide_inline_view();
+								open_safe();
+							}
+						}
+						var xp = 65;
+						var yp = 70;
+						var wp = 34;
+						var hp = 35;
+						add_inline_clicker(xp,		yp,   wp, hp, "num_1", "", function(){		click_pad(1); });
+						add_inline_clicker(xp+wp,	yp,   wp, hp, "num_2", "", function(){		click_pad(2); });
+						add_inline_clicker(xp+wp*2,	yp,	  wp, hp, "num_3", "", function(){		click_pad(3); });
+						add_inline_clicker(xp,		yp+hp, wp, hp, "num_4", "", function(){		click_pad(4); });
+						add_inline_clicker(xp+wp,	yp+hp, wp, hp, "num_5", "", function(){		click_pad(5); });
+						add_inline_clicker(xp+wp*2,	yp+hp, wp, hp, "num_6", "", function(){		click_pad(6); });
+						add_inline_clicker(xp,		yp+hp*2, wp, hp, "num_7", "", function(){	click_pad(7); });
+						add_inline_clicker(xp+wp,	yp+hp*2, wp, hp, "num_8", "", function(){	click_pad(8); });
+						add_inline_clicker(xp+wp*2,	yp+hp*2, wp, hp, "num_9", "", function(){	click_pad(9); });
+					});
+				});
+			} else {
+				add_clicker(242,36,93,93,"clicker_safe_emptied","clickers/SafeOpen.png", null);
+			}
+
 			add_clicker(242,36,93,93,"clicker_cagedbird","clickers/puzzleroom_w/BirdPainting.png",function(){
-				console.log("you clicked the bird paintingn nice job");
+				if(sessionStorage.safe_revealed == "false") {
+						sessionStorage.safe_revealed = "true";
+				} else {
+						sessionStorage.safe_revealed = "false";
+				}
+				move_painting();
 			});
+
+			move_painting();
+
+			//TODO: safe, with the key inside it.
+
+
+
 			
 		// =====================================================
 

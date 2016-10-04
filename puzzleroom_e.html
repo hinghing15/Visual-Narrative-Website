@@ -23,7 +23,9 @@
 		// =====================================================
 
 			add_clicker(45,340,130,60,"clicker_gotrapdoor","",function(){
-				location.href = 'basement_hallway.html';
+				if(inventory_has_item("Basement Key")){
+					location.href = 'basement_hallway.html';
+				}
 			});
 
 			add_clicker(420,198,117/2,32/2,"clicker_showfamilyphoto","clickers/puzzleroom_e/Family-Picture-PlacedDown.png",function(){
