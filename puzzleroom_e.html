@@ -19,12 +19,17 @@
 			picture_set("rooms/puzzleroom_e.png");
 		// ======================
 
+		var lockedsound = new Sound("sounds/LockedDoor.mp3");
+
 		// clickers go HERE
 		// =====================================================
 
 			add_clicker(45,340,130,60,"clicker_gotrapdoor","",function(){
 				if(inventory_has_item("Basement Key")){
 					location.href = 'basement_hallway.html';
+				} else {
+					subtitle_set("It's locked.");
+					lockedsound.play();
 				}
 			});
 

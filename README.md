@@ -112,9 +112,17 @@ same functionality as `add_clicker()`, but for the inline view. use this in the 
 
 
 
-### `void remove_inline_clicker(id)`
+#### `void remove_inline_clicker(id)`
 
 same functionality as `remove_clicker()` but for the inline view. note: `hide_inline_view()` removes every inline clicker automatically.
+
+
+
+#### `void lose()`
+
+give the user a nice jumpscare, and end the game. (still needs sound!)
+
+fun note: if the player tries to continue playing by pressing the back button, they get ANOTHER jumpscare and a reprimand for trying to CHEAT.
 
 ---
 

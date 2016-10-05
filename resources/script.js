@@ -248,6 +248,67 @@ function remove_inline_clicker(id){
 	}
 }
 
+function lose(deathString){ //lose the game on the spot.
+	sessionStorage.dead = "1"; //you're dead now.
+	tremble = 40;
+	// loopingmusic.setVolume(1);
+	// loopingmusic.setRate(4);
+	// IMPLEMENT SPOOKY sSOUND
+	var w = $(window).width()+tremble*2;
+	var h = w * (600/1280);
+	var jumpscare = document.createElement('div');
+	$(jumpscare).css({
+		'position': "fixed",
+		'id': 'jumpscare', 
+		'left': '50%', 
+		'top': '50%', 
+		'background-image': 'url(clickers/JUMPSCARE.png)',
+		'background-size': '100%',
+		'width': w+'px',
+		'height': h+'px',
+		'margin-left': (-w/2)+'px',
+		'margin-top': (-h/2)+'px',
+	});
+	document.body.appendChild(jumpscare);
+	setInterval(function(){
+			var w = $(window).width()+tremble*2;
+			var h = w * (600/1280);
+			$('#wrapper').css({
+				'margin-top': -202+(tremble-tremble*2*Math.random()),
+				'margin-left': -360+(tremble-tremble*2*Math.random())
+			});
+			$(jumpscare).css({
+				'margin-top': -(h/2)+(tremble-tremble*2*Math.random()),
+				'margin-left': -(w/2)+(tremble-tremble*2*Math.random())
+			});
+		}, 30);
+	background_set('#ff0000');
+	setTimeout(function(){
+		$('#wrapper').remove();
+		$(jumpscare).remove();
+		var blep = document.createElement('div');
+		$(blep).css({
+			'position': "fixed",
+			'id': 'blep', 
+			'left': '50%', 
+			'top': '50%', 
+			'transform': 'translate(-50%, -50%)',
+			'color':'white',
+			'text-align': 'center'
+		});
+		$(blep).html("<p>"+deathString+"</p><p>&nbsp;</p>");
+		background_set('#000000');
+		document.body.appendChild(blep);
+		setTimeout(function(){
+			$(blep).html("<p>"+deathString+"</p><p><a>Try Again?</a></p>");
+			$('a').click(function(){
+				sessionStorage.clear();
+				location.href = 'index.html';
+			})
+		}, 1000);
+	}, 1000);
+}
+
 $(document).ready(function(){
 	if (sessionStorage.inventory){
 		inv = JSON.parse(sessionStorage.inventory);

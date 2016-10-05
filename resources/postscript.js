@@ -6,6 +6,11 @@
 
 $(document).ready(function(){
 
+	if(sessionStorage.dead == "1"){
+		console.log("YOU'RE ALREADY DEAD.");
+		setTimeout(function(){lose("No going back.");}, 3000);
+	}
+
 	//musics
 	var loopingmusic = new Sound('sounds/BackgroundMusicAmbience.mp3');
 	loopingmusic.setVolume(0.3);
@@ -19,26 +24,34 @@ $(document).ready(function(){
 		console.log('initializing beingChased');
 	}
 
+	var tremble = 0;
+
 	if(sessionStorage.beingChased == 1){
 		background_set("#331010");
+		tremble = 2;
+		loopingmusic.setVolume(0.5);
+		loopingmusic.setRate(3);
+
 		setInterval(function(){
 			$('#wrapper').css({
-				'margin-top': -202+(2-4*Math.random()),
-				'margin-left': -360+(2-4*Math.random())
+				'margin-top': -202+(tremble-tremble*2*Math.random()),
+				'margin-left': -360+(tremble-tremble*2*Math.random())
 			});
-			loopingmusic.setVolume(0.5);
-			loopingmusic.setRate(3);
+			
 		}, 30);
 	} else if(sessionStorage.beingChased == 2){
+		tremble = 5;
+		background_set("#ff0000");
 		$('#wrapper').css({
 			'transform':'scale(1.25, 1.25)'
 		});
 		var alphabet = '123-456-789-###';
+		loopingmusic.setVolume(1);
+		loopingmusic.setRate(4);
 		setInterval(function(){
-			background_set("#ff0000");
 			$('#wrapper').css({
-				'margin-top': -202+(5-10*Math.random()),
-				'margin-left': -360+(5-10*Math.random())
+				'margin-top': -202+(tremble-tremble*2*Math.random()),
+				'margin-left': -360+(tremble-tremble*2*Math.random())
 			});
 			var randomString = '';
 		    for (var i = 0; i < 20; i++) {
@@ -46,8 +59,6 @@ $(document).ready(function(){
 		    	randomString += alphabet.substring(randomPoz,randomPoz+1);
 		    }
 		    document.title = randomString;
-		    loopingmusic.setVolume(1);
-			loopingmusic.setRate(4);
 		}, 30);
 	}
 
@@ -79,6 +90,19 @@ $(document).ready(function(){
 				sessionStorage.beingChased++;
 			}
 			location.reload();
+		});
+
+		var losebutt = document.createElement('button');
+		$(losebutt).html('Die');
+		$(losebutt).css({
+			'position': 'absolute',
+			'display': 'block',
+			'top':'40px',
+			'left':'0px'
+		});
+		document.body.appendChild(losebutt);
+		$(losebutt).click(function(){
+			lose("You died.");
 		});
 	}
 });
