@@ -21,6 +21,10 @@
 			border_set("#ffffff");
 		// ======================
 
+		var loopingviolins = new Sound('sounds/ScaryViolins.mp3');
+		loopingviolins.setVolume(0.2);
+		loopingviolins.playLooping();
+
 		// clickers go HERE
 		// =====================================================
 
@@ -28,26 +32,46 @@
 			$(girl).attr('id','girl');
 			$('#clickers').append($(girl));
 
+			function girl_stand(){
+				$(girl).css({
+						'background': 'url(clickers/GirlStanding.png)',
+						'background-size': 'contain',
+						'width': '75px',
+						'height': '233px'
+					});
+			}
+
 			if(sessionStorage.beingChased == 0){
 				setTimeout(function(){
 					console.log('initiate phase one');
 					style_for_chase(1);
+					loopingviolins.setVolume(0.4);
+					loopingviolins.setRate(1.5);
 				}, 1000*15);
 
 				setTimeout(function(){
 					console.log('power up the bass cannon');
 					style_for_chase(2);
+					loopingviolins.setVolume(0.65);
+					loopingviolins.setRate(2.5);
 				}, 1000*30);
 
 				setTimeout(function(){
 					console.log('POWER UP THE BASS CANNON');
-					$(girl).css({
-						'background': 'url(clickers/GirlStanding.png)',
-						'background-size': 'contain',
-						'width': '83px',
-						'height': '233px'
-					});
+					girl_stand();
+					loopingviolins.setVolume(1);
+					loopingviolins.setRate(4);
 				}, 1000*45);
+
+				setTimeout(function(){
+					lose("You died.");
+				}, 1000*48);
+			} else {
+				style_for_chase(2);
+				setTimeout(function(){
+					lose("You went back.");
+					girl_stand();
+				}, 1000*2.5);
 			}
 
 			if(!inventory_has_item("Exit Key")){
@@ -56,12 +80,10 @@
 					remove_clicker("clicker_exitkey");
 					sessionStorage.beingChased = 1;
 					style_for_chase(2);
-					$(girl).css({
-						'background': 'url(clickers/GirlStanding.png)',
-						'background-size': 'contain',
-						'width': '83px',
-						'height': '233px'
-					});
+					girl_stand();
+					setTimeout(function(){
+						lose("You died.");
+					}, 1000*4);
 				});
 			}
 

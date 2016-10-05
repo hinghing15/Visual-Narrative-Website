@@ -22,10 +22,13 @@
 		// clickers go HERE
 		// =====================================================
 
-			add_clicker(190,65,350,350,'clicker_chain','clickers/ChainLocked.png',function(){
+			add_clicker(190,55,350,350,'clicker_chain','clickers/ChainLocked.png',function(){
 				if(inventory_has_item('Exit Key')){
 					remove_clicker('clicker_chain');
 					console.log("leave time");
+					add_clicker(250,100,210,250,'clicker_exit','',function(){
+						location.href = 'out.html';
+					});
 				} else {
 					subtitle_set("It's locked.");
 				}

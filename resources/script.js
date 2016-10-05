@@ -156,15 +156,16 @@ function Sound(src){
 	}
 
 	this.playLooping = function(){
-		this.Sound.loop = true;
 		this.Sound.addEventListener('loadedmetadata', function() {
 			console.log(this.duration);
 			this.currentTime = Math.random() * this.duration;
 			this.play();
+			this.loop = true;
 			return;
 		});
 		this.currentTime = Math.random() * this.duration;
 		this.play();
+		this.Sound.loop = true;
 	}
 
 	this.pause = function(){
