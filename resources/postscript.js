@@ -33,8 +33,7 @@ $(document).ready(function(){
 		//loopingmusic.pause();
 		loopingviolins.playLooping();
 	}
-	}
-	init_chase(sessionStorage.beingChased);
+	//init_chase(sessionStorage.beingChased);
 
 	if(sessionStorage.dead == "1"){
 		console.log("YOU'RE ALREADY DEAD.");
