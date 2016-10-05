@@ -251,6 +251,7 @@ function remove_inline_clicker(id){
 function lose(deathString){ //lose the game on the spot.
 	sessionStorage.dead = "1"; //you're dead now.
 	tremble = 40;
+	subtitle_set("");
 	// loopingmusic.setVolume(1);
 	// loopingmusic.setRate(4);
 	// IMPLEMENT SPOOKY sSOUND
@@ -282,7 +283,7 @@ function lose(deathString){ //lose the game on the spot.
 				'margin-left': -(w/2)+(tremble-tremble*2*Math.random())
 			});
 		}, 30);
-	background_set('#ff0000');
+	background_set('#101010');
 	setTimeout(function(){
 		$('#wrapper').remove();
 		$(jumpscare).remove();

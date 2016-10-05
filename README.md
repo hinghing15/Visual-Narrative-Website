@@ -118,7 +118,7 @@ same functionality as `remove_clicker()` but for the inline view. note: `hide_in
 
 
 
-#### `void lose()`
+#### `void lose(message)`
 
 give the user a nice jumpscare, and end the game. (still needs sound!)
 

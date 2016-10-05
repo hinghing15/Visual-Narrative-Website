@@ -8,6 +8,7 @@ $(document).ready(function(){
 
 	if(sessionStorage.dead == "1"){
 		console.log("YOU'RE ALREADY DEAD.");
+		$("#wrapper").css('pointer-events','none');
 		setTimeout(function(){lose("No going back.");}, 3000);
 	}
 
