@@ -2,22 +2,15 @@
 
 var picture_url = "";
 var inv = [];
+
+var tremolo = null;
+
 //set this variable to false to turn off all the debug stuff (clicker colors, inventory printout)
 var debug = true;
 
 
 //=============================================================
 
-/* function add_clicker_link(x, y, width, height, href){
-	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;' onclick=\"location.href='"+href+"'\"></div>");
-	$('#clickers').append(clicker);
-} */
-
-/* function add_clicker_js(x, y, width, height, js){
-	var clicker = $("<div class='clicker' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div>");
-	clicker.click(js);
-	$('#clickers').append(clicker);
-} */
 
 function add_clicker(x, y, width, height, id, picture_src, js){
 	var clicker = $("<div class='clicker' id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px; background-image:url("+picture_src+"); background-size:contain;'></div>");
@@ -85,7 +78,6 @@ function inventory_remove_item(name){
 	print_inventory();
 }
 
-
 function inventory_clear(){
 	inv = [];
 	sessionStorage.inventory = JASON.stringivy(inv);
@@ -93,6 +85,7 @@ function inventory_clear(){
 }
 
 function subtitle_set(message){
+
 	$('#subtitle').text(message);
 }
 
@@ -105,10 +98,14 @@ function picture_set(url){
 }
 
 function background_set(color){
-	$('body').css("background", color);
+
+
+	$('body').css("background", color);	
 }
 
 function border_set(color){
+
+
 	$('#wrapper').css("border","1px solid "+color);
 }
 
@@ -145,7 +142,6 @@ function nav_down(link){
 }
 
 function Sound(src){
-	//this.Sound = document.createElement("audio");
 	this.Sound = new Audio();
 	this.Sound.src = src;
 	this.Sound.setAttribute("preload", "auto");
@@ -153,7 +149,6 @@ function Sound(src){
 	this.Sound.style.display = "none";
 	document.body.appendChild(this.Sound);
 
-	//GLOBAL VOLUME VARIABLE. i have it kinda low rn.
 
 	this.play = function(){
 		this.Sound.loop = false;
@@ -165,9 +160,11 @@ function Sound(src){
 		this.Sound.addEventListener('loadedmetadata', function() {
 			console.log(this.duration);
 			this.currentTime = Math.random() * this.duration;
-			this.play();	
+			this.play();
+			return;
 		});
-		
+		this.currentTime = Math.random() * this.duration;
+		this.play();
 	}
 
 	this.pause = function(){
@@ -181,7 +178,11 @@ function Sound(src){
 	this.setRate = function(rate){
 		this.Sound.playbackRate = rate;
 	}
+}
 
+function stop_all_sounds(){ // right off of stackoverflow baby
+	var sounds = document.getElementsByTagName('audio');
+ 	for(i=0; i<sounds.length; i++) sounds[i].pause();
 }
 
 
@@ -218,7 +219,6 @@ function show_inline_view(picture_src, on_load){
 	$(".inline-dismisser").click(function(){
 		hide_inline_view();
 	});
-
 }
 
 
@@ -230,7 +230,6 @@ function hide_inline_view(){
 	$("#clickers").css("pointer-events", "all");
 	$("#navclicks").css("visibility", "visible");
 	$(".inline-dismisser").css("visibility", "hidden");
-	
 }
 
 
@@ -248,7 +247,63 @@ function remove_inline_clicker(id){
 	}
 }
 
+function clear_all_intervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+    // blatantly stolen off stackoverflow
+}
+
+function style_for_chase(chasenum){
+	if(chasenum == 0){
+		background_set("#101010");
+		//clear_all_intervals();
+		document.title = "\u200E";
+		$('#wrapper').css({
+			'transform':'none'
+		});
+	} else if(chasenum == 1){
+		window.clearInterval(tremolo);
+		background_set("#331010");
+		$('#wrapper').css({
+			'transform':'none'
+		});
+		//loopingmusic.setVolume(0.5);
+		//loopingmusic.setRate(3);
+
+		tremolo = setInterval(function(){
+			$('#wrapper').css({
+				'margin-top': -202+(2-2*2*Math.random()),
+				'margin-left': -360+(2-2*2*Math.random())
+			});
+			
+		}, 30);
+	} else if(chasenum == 2){
+		window.clearInterval(tremolo);
+		background_set("#ff0000");
+		$('#wrapper').css({
+			'transform':'scale(1.25, 1.25)'
+		});
+		var alphabet = '123-456-789-###';
+		//loopingmusic.setVolume(1);
+		//loopingmusic.setRate(4);
+		tremolo = setInterval(function(){
+			$('#wrapper').css({
+				'margin-top': -202+(5-5*2*Math.random()),
+				'margin-left': -360+(5-5*2*Math.random())
+			});
+			var randomString = '';
+		    for (var i = 0; i < 20; i++) {
+		    	var randomPoz = Math.floor(Math.random() * alphabet.length);
+		    	randomString += alphabet.substring(randomPoz,randomPoz+1);
+		    }
+		    document.title = randomString;
+		}, 30);
+	}
+}
+
 function lose(deathString){ //lose the game on the spot.
+	//style_for_chase(2);
+	background_set('#ff0000');
 	sessionStorage.dead = "1"; //you're dead now.
 	tremble = 40;
 	subtitle_set("");
@@ -283,8 +338,9 @@ function lose(deathString){ //lose the game on the spot.
 				'margin-left': -(w/2)+(tremble-tremble*2*Math.random())
 			});
 		}, 30);
-	background_set('#101010');
 	setTimeout(function(){
+		stop_all_sounds();
+		clear_all_intervals();
 		$('#wrapper').remove();
 		$(jumpscare).remove();
 		var blep = document.createElement('div');
@@ -298,7 +354,7 @@ function lose(deathString){ //lose the game on the spot.
 			'text-align': 'center'
 		});
 		$(blep).html("<p>"+deathString+"</p><p>&nbsp;</p>");
-		background_set('#000000');
+		background_set('#101010');
 		document.body.appendChild(blep);
 		setTimeout(function(){
 			$(blep).html("<p>"+deathString+"</p><p><a>Try Again?</a></p>");
@@ -316,5 +372,4 @@ $(document).ready(function(){
 	} else {
 		sessionStorage.inventory = JSON.stringify([]);
 	}
-
 });

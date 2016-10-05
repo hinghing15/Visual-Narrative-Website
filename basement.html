@@ -24,15 +24,55 @@
 		// clickers go HERE
 		// =====================================================
 
-			
+			var girl = document.createElement('div');
+			$(girl).attr('id','girl');
+			$('#clickers').append($(girl));
+
+			if(sessionStorage.beingChased == 0){
+				setTimeout(function(){
+					console.log('initiate phase one');
+					style_for_chase(1);
+				}, 1000*15);
+
+				setTimeout(function(){
+					console.log('power up the bass cannon');
+					style_for_chase(2);
+				}, 1000*30);
+
+				setTimeout(function(){
+					console.log('POWER UP THE BASS CANNON');
+					$(girl).css({
+						'background': 'url(clickers/GirlStanding.png)',
+						'background-size': 'contain',
+						'width': '83px',
+						'height': '233px'
+					});
+				}, 1000*45);
+			}
+
+			if(!inventory_has_item("Exit Key")){
+				add_clicker(400, 20, 71, 44, "clicker_exitkey", "clickers/Key.png", function(){
+					inventory_add_item("Exit Key", "clickers/Key.png");
+					remove_clicker("clicker_exitkey");
+					sessionStorage.beingChased = 1;
+					style_for_chase(2);
+					$(girl).css({
+						'background': 'url(clickers/GirlStanding.png)',
+						'background-size': 'contain',
+						'width': '83px',
+						'height': '233px'
+					});
+				});
+			}
+
 			
 		// =====================================================
 
 		// set where clicking on the side links makes you go
 			nav_left("");
-			nav_right("");
+			nav_right("basement_hallway.html");
 			nav_up("");
-			nav_down("basement_hallway.html");
+			nav_down("");
 
 
 	});

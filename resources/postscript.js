@@ -6,63 +6,41 @@
 
 $(document).ready(function(){
 
-	if(sessionStorage.dead == "1"){
-		console.log("YOU'RE ALREADY DEAD.");
-		$("#wrapper").css('pointer-events','none');
-		setTimeout(function(){lose("No going back.");}, 3000);
-	}
 
-	//musics
 	var loopingmusic = new Sound('sounds/BackgroundMusicAmbience.mp3');
-	loopingmusic.setVolume(0.3);
-	// loopingmusic.setRate(1);
+	var loopingviolins = new Sound('sounds/ScaryViolins.mp3');
+	loopingmusic.setVolume(0);
+	loopingviolins.setVolume(0);
 	
-	//commented out to mute during development. uncomment to have playing ambience.
-	//loopingmusic.playLooping();
 
 	if(sessionStorage.beingChased == null){
 		sessionStorage.beingChased = 0;
 		console.log('initializing beingChased');
 	}
 
-	var tremble = 0;
-
-	if(sessionStorage.beingChased == 1){
-		background_set("#331010");
-		tremble = 2;
-		loopingmusic.setVolume(0.5);
-		loopingmusic.setRate(3);
-
-		setInterval(function(){
-			$('#wrapper').css({
-				'margin-top': -202+(tremble-tremble*2*Math.random()),
-				'margin-left': -360+(tremble-tremble*2*Math.random())
-			});
-			
-		}, 30);
-	} else if(sessionStorage.beingChased == 2){
-		tremble = 5;
-		background_set("#ff0000");
-		$('#wrapper').css({
-			'transform':'scale(1.25, 1.25)'
-		});
-		var alphabet = '123-456-789-###';
-		loopingmusic.setVolume(1);
-		loopingmusic.setRate(4);
-		setInterval(function(){
-			$('#wrapper').css({
-				'margin-top': -202+(tremble-tremble*2*Math.random()),
-				'margin-left': -360+(tremble-tremble*2*Math.random())
-			});
-			var randomString = '';
-		    for (var i = 0; i < 20; i++) {
-		    	var randomPoz = Math.floor(Math.random() * alphabet.length);
-		    	randomString += alphabet.substring(randomPoz,randomPoz+1);
-		    }
-		    document.title = randomString;
-		}, 30);
+	if (sessionStorage.beingChased == 0){
+		loopingmusic.playLooping();
+	} else if(sessionStorage.beingChased == 1){
+		style_for_chase(1);
+		//loopingviolins.setVolume(0.1);
+		loopingviolins.setRate(1);
+		//loopingmusic.pause();
+		loopingviolins.playLooping();
+	} else if (sessionStorage.beingChased == 2){
+		style_for_chase(2);
+		//loopingviolins.setVolume(1);
+		loopingviolins.setRate(2);
+		//loopingmusic.pause();
+		loopingviolins.playLooping();
 	}
+	}
+	init_chase(sessionStorage.beingChased);
 
+	if(sessionStorage.dead == "1"){
+		console.log("YOU'RE ALREADY DEAD.");
+		$("#wrapper").css('pointer-events','none');
+		setTimeout(function(){lose("No going back.");}, 3000);
+	}
 
 	/*inventory_add_item("It's an inventory item!","nothing.png");
 	inventory_add_item("Ahaha its another one","nothing.png");
@@ -75,7 +53,7 @@ $(document).ready(function(){
 		$('.inline-clicker').css('border-bottom','1px dashed green');
 		$('.inline-clicker').css('border-right','1px dashed green');
 
-		var togglebutt = document.createElement('button');
+	/*	var togglebutt = document.createElement('button');
 		$(togglebutt).html('toggle chase');
 		$(togglebutt).css({
 			'position': 'absolute',
@@ -90,8 +68,11 @@ $(document).ready(function(){
 			} else {
 				sessionStorage.beingChased++;
 			}
-			location.reload();
+			
+			init_chase(sessionStorage.beingChased);
 		});
+
+	*/
 
 		var losebutt = document.createElement('button');
 		$(losebutt).html('Die');

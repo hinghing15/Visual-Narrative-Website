@@ -43,7 +43,7 @@
 			function open_safe(){
 				opensound.play();
 				show_inline_view("clickers/SafeOpen.png", function(){
-					add_inline_clicker(100,100,111,44,"clicker_basementkey","clickers/Key.png", function(){
+					add_inline_clicker(130,200,71,44,"clicker_basementkey","clickers/Key.png", function(){
 						inventory_add_item("Basement Key", "clickers/Key.png");
 						remove_inline_clicker("clicker_basementkey");
 						remove_clicker("clicker_safe");
@@ -95,7 +95,7 @@
 				if(sessionStorage.safe_revealed == "false") {
 						sessionStorage.safe_revealed = "true";
 				} else {
-						sessionStorage.safe_revealed = "false";
+						//sessionStorage.safe_revealed = "false";
 				}
 				move_painting();
 			});

@@ -198,9 +198,23 @@ a {
 	text-decoration: underline;
 }
 
+/* basement room */
+#girl {
+	position: absolute;
+	bottom:-30px;
+	left:45px;
+	width:100px;
+	height:125px;
+	background:url(../clickers/GirlSitting.png);
+	background-size:contain;
+	/*background-color:green;*/
+}
+
 
 /* debug */
 
 #debug-inv {
 	font-size:6pt;
 }
+
+

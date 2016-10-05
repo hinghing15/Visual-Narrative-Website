@@ -6,6 +6,10 @@ Quick documentation all the functions and how to use them. I think every one is 
 
 
 
+*Note: this document is not up to date anymore. I have not been updating it.*
+
+
+
 
 
 #### `void add_clicker(x, y, width, height, id, picture_src, js)`
