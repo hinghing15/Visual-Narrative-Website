@@ -10,7 +10,13 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+	<audio id="creak" src="sounds/Creak.mp3" onended="leaveRoom()"></audio>
 	<script>
+
+	function leaveRoom() {
+		location.href = 'basement_hallway.html';
+	}
+
 	$(document).ready(function(){
 
 		// change this to change the background image
@@ -26,7 +32,7 @@
 
 			add_clicker(45,340,130,60,"clicker_gotrapdoor","",function(){
 				if(inventory_has_item("Basement Key")){
-					location.href = 'basement_hallway.html';
+					document.getElementById("creak").play();
 				} else {
 					subtitle_set("It's locked.");
 					lockedsound.play();
