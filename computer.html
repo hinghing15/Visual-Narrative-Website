@@ -51,34 +51,22 @@
 				//Phone interaction sounds
 				phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3", 1)
 			
-				if(!enteredCorrect)
-				{
-					//if(phoneSound_dialtone.paused)
-						phoneSound_dialtone.playLooping();
-				}
-				else
-				{
-					playSoundsInOrder();
-				}
 				currentOrder = [];
 			
-				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
-								
-					var input = document.createElement("input");
-					input.type = "text";
-					input.className = "css-class-name"; // set the CSS class
+				show_inline_view("inlines/Monitor.png", function(){
 					//container.appendChild(input);					
 								
-					add_inline_clicker(85,60,60,60,"phone_1","",function(){
-						console.log("you clicked phone_1");
-						stopSound(phoneSound_dialtone);
-						checkOrder(1);
-						if(!phoneSound_1.paused)
-							phoneSound_1.currentTime = 0;
-						phoneSound_1.play();				
+					add_inline_text_form(85,60,60,60,"password","textBox",function(){
+						console.log("you clicked password");
+						var textBox = document.getElementById('password');
+						console.log(textBox.value);
 					});
 				});
 			});
+			function checkPassword()
+			{
+				console.log("Check password");
+			}
 
 
 		// =====================================================
@@ -89,169 +77,7 @@
 			nav_up("");
 			nav_down("");
 		
-		//http://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript		
-		if(Array.prototype.equals)
-			console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
-		// attach the .equals method to Array's prototype to call it on any array
-		Array.prototype.equals = function (array) 
-		{
-			// if the other array is a falsy value, return
-			if (!array)
-				return false;
 
-			// compare lengths - can save a lot of time 
-			if (this.length != array.length)
-				return false;
-
-			for (var i = 0, l=this.length; i < l; i++) 
-			{
-				// Check if we have nested arrays
-				if (this[i] instanceof Array && array[i] instanceof Array) 
-				{
-					// recurse into the nested arrays
-					if (!this[i].equals(array[i]))
-						return false;       
-				}           
-				else if (this[i] != array[i]) 
-				{ 
-					// Warning - two different object instances will never be equal: {x:20} != {x:20}
-					return false;   
-				}           
-			}       
-			return true;
-		};
-		// Hide method from for-in loops
-		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
-			
-		function stopSound(snd)
-		{
-			if(!snd.paused)
-			{
-				snd.pause();
-				snd = 0;
-			}
-		};
-		function playSoundsInOrder()
-		{
-			console.log("play sounds in order");
-			
-			delay = 0;
-			delayStep = 1000;
-			
-			for(i = 0; i < correctSounds.length; i++)
-			{
-				
-				setTimeout(function()
-				{
-					playSound(soundIndex);
-					soundIndex++;
-					if(soundIndex >= correctSounds.length)
-					{
-						soundIndex = 0;
-						//setTimeout( playSoundsInOrder, delayAfterCorrect);
-					}
-				}, delay);
-				delay += delayStep;
-			}
-			
-			
-			
-			//correctSounds[0].addEventListener("ended",playNext[0]);
-			//correctSounds[0].play();
-			
-			
-			//whatever is your audio element
-			//var container = phoneSound_dialtone;
-			//var sound = new Audio();
-			//this.Sound.src = "sounds/PhoneTone.mp3";
-			//play files in a row
-			//new Mp3Queue(sound, correctSounds);
-		};
-		
-		function playSound(index)
-		{
-			console.log(index);
-			currentSound = new Sound(correctSounds[index], 1);
-			currentSound.play();
-		};
-		
-		
-		function playNext(index)
-		{
-			i = index + 1;
-			console.log("play next");
-			if(i < correctSounds.length)
-			{
-				correctSounds[i].addEventListener("ended",playNext(i));
-				//correctSounds[i].play();			
-			}
-		};
-		
-		function checkOrder(pressed)
-		{
-			if(!enteredCorrect)
-			{
-				currentOrder.push(pressed);
-
-			
-				//If order is long enough check if right or wrong
-				if(currentOrder.length > correctOrder.length)
-				{
-					currentOrder.shift();
-					if(currentOrder.equals(correctOrder))
-					{
-						console.log("correct");
-						setTimeout( playSoundsInOrder, delayAfterCorrect);
-						//playSoundsInOrder();
-						enteredCorrect = true;
-					}
-					/*
-					else
-					{
-						console.log("incorrect");
-						if(phoneSound_dialtone.paused)
-							phoneSound_dialtone.playLooping();
-						
-						currentOrder = [];
-					}
-					*/		
-				}
-				else if(currentOrder.length == correctOrder.length)
-				{
-					if(currentOrder.equals(correctOrder))
-					{
-						console.log("correct");
-						setTimeout(playSoundsInOrder, delayAfterCorrect);
-						//playSoundsInOrder();
-						enteredCorrect = true;
-					}
-				}
-				console.log(currentOrder);
-			}
-		};
-		
-
-		
-		//http://stackoverflow.com/questions/16916896/playing-two-files-in-a-row-in-javascript
-		var Mp3Queue = function(container, files) {
-			console.log("play sounds");
-			var index = 1;
-			if(!container || !container.tagName || container.tagName !== 'AUDIO')throw 'Invalid container';
-			if(!files || !files.length)throw 'Invalid files array';        
-
-			var playNext = function() {
-				if(index < files.length) {
-					container.src = files[index];
-					index += 1;
-				} else {
-					container.removeEventListener('ended', playNext, false);
-				}
-			};
-
-			container.addEventListener('ended', playNext);
-
-			container.src = files[0];
-		};
 		
 	});
 	</script>
