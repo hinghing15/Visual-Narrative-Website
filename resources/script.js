@@ -154,6 +154,11 @@ function Sound(src){
 		this.Sound.loop = false;
 		this.Sound.play();
 	}
+	
+	this.addEventListener = function(name, func)
+	{
+		this.Sound.addEventListener(name,func);
+	}
 
 	this.playLooping = function(){
 		this.Sound.addEventListener('loadedmetadata', function() {
@@ -172,6 +177,11 @@ function Sound(src){
 		this.Sound.pause();
 	}
 
+	this.currentTime = function(time)
+	{
+		this.Sound.currentTime = time;
+	}
+	
 	this.setVolume = function(vol){
 		this.Sound.volume = vol;
 	}
@@ -304,13 +314,12 @@ function style_for_chase(chasenum){
 
 function lose(deathString){ //lose the game on the spot.
 	//style_for_chase(2);
+	var screamSound = new Sound('sounds/Scream.mp3');
+	screamSound.play();
 	background_set('#ff0000');
 	sessionStorage.dead = "1"; //you're dead now.
 	tremble = 40;
 	subtitle_set("");
-	// loopingmusic.setVolume(1);
-	// loopingmusic.setRate(4);
-	// IMPLEMENT SPOOKY sSOUND
 	var w = $(window).width()+tremble*2;
 	var h = w * (600/1280);
 	var jumpscare = document.createElement('div');

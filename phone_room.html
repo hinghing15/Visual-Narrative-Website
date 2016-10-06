@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>&lrm;</title> <link rel="icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
@@ -35,9 +36,10 @@
 			phoneSound_pound = new Sound("sounds/PhonePound.mp3")
 			
 			correctOrder = [5,7,0,0,5];
-			correctSounds = [phoneSound_5,phoneSound_7,phoneSound_0,phoneSound_0,phoneSound_5];
-			
+			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
+			delayAfterCorrect = 2000;
 			currentOrder = [];
+			soundIndex = 0;
 			
 			enteredCorrect = false;
 			
@@ -45,8 +47,7 @@
 			phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3")
 
 			add_clicker(50,100,50,50,"clicker_phone", "clickers/bigphone.gif", function(){
-			
-			
+		
 				if(!enteredCorrect)
 				{
 					if(phoneSound_dialtone.paused)
@@ -54,14 +55,18 @@
 				}
 				else
 				{
-					//playSoundsInOrder(this,correctSounds);
+					playSoundsInOrder();
 				}
+				currentOrder = [];
 			
 				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
+								
 					add_inline_clicker(85,60,60,60,"phone_1","",function(){
 						console.log("you clicked phone_1");
 						stopSound(phoneSound_dialtone);
 						checkOrder(1);
+						if(!phoneSound_1.paused)
+							phoneSound_1.currentTime = 0;
 						phoneSound_1.play();
 
 					});
@@ -185,22 +190,81 @@
 				snd = 0;
 			}
 		};
+		function playSoundsInOrder()
+		{
+			console.log("play sounds in order");
+			
+			delay = 0;
+			delayStep = 1000;
+			
+			for(i = 0; i < correctSounds.length; i++)
+			{
+				
+				setTimeout(function()
+				{
+					playSound(soundIndex);
+					soundIndex++;
+					if(soundIndex >= correctSounds.length)
+					{
+						soundIndex = 0;
+						//setTimeout( playSoundsInOrder, delayAfterCorrect);
+					}
+				}, delay);
+				delay += delayStep;
+			}
+			
+			
+			
+			//correctSounds[0].addEventListener("ended",playNext[0]);
+			//correctSounds[0].play();
+			
+			
+			//whatever is your audio element
+			//var container = phoneSound_dialtone;
+			//var sound = new Audio();
+			//this.Sound.src = "sounds/PhoneTone.mp3";
+			//play files in a row
+			//new Mp3Queue(sound, correctSounds);
+		}
+		
+		function playSound(index)
+		{
+			console.log(index);
+			currentSound = new Sound(correctSounds[index]);
+			currentSound.play();
+		}
+		
+		
+		function playNext(index)
+		{
+			i = index + 1;
+			console.log("play next");
+			if(i < correctSounds.length)
+			{
+				correctSounds[i].addEventListener("ended",playNext(i));
+				//correctSounds[i].play();			
+			}
+		}
 		
 		function checkOrder(pressed)
 		{
 			if(!enteredCorrect)
 			{
 				currentOrder.push(pressed);
+
 			
 				//If order is long enough check if right or wrong
-				if(currentOrder.length >= correctOrder.length)
+				if(currentOrder.length > correctOrder.length)
 				{
+					currentOrder.shift();
 					if(currentOrder.equals(correctOrder))
 					{
 						console.log("correct");
-						//playSoundsInOrder(correctSounds);
+						setTimeout( playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
 						enteredCorrect = true;
 					}
+					/*
 					else
 					{
 						console.log("incorrect");
@@ -208,23 +272,28 @@
 							phoneSound_dialtone.playLooping();
 						
 						currentOrder = [];
-					}		
+					}
+					*/		
+				}
+				else if(currentOrder.length == correctOrder.length)
+				{
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						setTimeout(playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
+						enteredCorrect = true;
+					}
 				}
 				console.log(currentOrder);
 			}
 		}
 		
-		function playSoundsInOrder()
-		{
-			//whatever is your audio element
-			var container = document.getElementById('container'); 
 
-			//play files in a row
-			new Mp3Queue(container, correctSounds);
-		}
 		
 		//http://stackoverflow.com/questions/16916896/playing-two-files-in-a-row-in-javascript
 		var Mp3Queue = function(container, files) {
+			console.log("play sounds");
 			var index = 1;
 			if(!container || !container.tagName || container.tagName !== 'AUDIO')throw 'Invalid container';
 			if(!files || !files.length)throw 'Invalid files array';        
