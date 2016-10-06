@@ -154,6 +154,11 @@ function Sound(src){
 		this.Sound.loop = false;
 		this.Sound.play();
 	}
+	
+	this.addEventListener = function(name, func)
+	{
+		this.Sound.addEventListener(name,func);
+	}
 
 	this.playLooping = function(){
 		this.Sound.loop = true;
@@ -171,6 +176,11 @@ function Sound(src){
 		this.Sound.pause();
 	}
 
+	this.currentTime = function(time)
+	{
+		this.Sound.currentTime = time;
+	}
+	
 	this.setVolume = function(vol){
 		this.Sound.volume = vol;
 	}
