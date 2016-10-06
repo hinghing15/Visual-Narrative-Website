@@ -25,6 +25,8 @@
 			// NOTE:
 			// THE SAFE HIDDEN BEHIND THE PICTURE IS FEATURE COMPLETE. IT DOES NOT NEED CHANGING.
 			// THE ONLY THING THAT WOULD NEED CHANGING IS THE ACTUAL CODE FOR THE SAFE ITSELF.
+			var password = [1, 1, 1, 1];
+
 
 			var sc = new Sound('sounds/PasswordCorrect.mp3');
 			var opensound = new Sound('sounds/SafeUnlock&Open.mp3');
@@ -58,7 +60,6 @@
 				add_clicker(242,36,93,93,"clicker_safe","clickers/SafeLocked.png", function(){
 					show_inline_view("clickers/SafeLocked.png",function(){
 						console.log("you clicked the SAFE. nice job");
-						var password = [5, 3, 4, 6];
 						var corrects = 0;
 						function click_pad(n){
 							sc.play();

@@ -189,6 +189,7 @@ body {
 }
 
 p {
+	color:white;
 	font-size: 28pt;
 }
 
@@ -203,8 +204,8 @@ a {
 	position: absolute;
 	bottom:-30px;
 	left:45px;
-	width:100px;
-	height:125px;
+	width:83px;
+	height:116px;
 	background:url(../clickers/GirlSitting.png);
 	background-size:contain;
 	/*background-color:green;*/
@@ -215,6 +216,7 @@ a {
 
 #debug-inv {
 	font-size:6pt;
+	color:white;
 }
 
 

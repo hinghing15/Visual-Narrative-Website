@@ -21,49 +21,134 @@
 			border_set("#ffffff");
 		// ======================
 
+		var loopingviolins = new Sound('sounds/ScaryViolins.mp3');
+		loopingviolins.setVolume(0.2);
+		loopingviolins.playLooping();
+
 		// clickers go HERE
 		// =====================================================
+
+			//SAFE CODE SAFE CODE SAFE CODE
+			var password = [1, 1, 1, 1];
+			//SAFE CODE SAFE CODE SAFE CODE
 
 			var girl = document.createElement('div');
 			$(girl).attr('id','girl');
 			$('#clickers').append($(girl));
 
-			if(sessionStorage.beingChased == 0){
-				setTimeout(function(){
-					console.log('initiate phase one');
-					style_for_chase(1);
-				}, 1000*15);
-
-				setTimeout(function(){
-					console.log('power up the bass cannon');
-					style_for_chase(2);
-				}, 1000*30);
-
-				setTimeout(function(){
-					console.log('POWER UP THE BASS CANNON');
-					$(girl).css({
+			function girl_stand(){
+				$(girl).css({
 						'background': 'url(clickers/GirlStanding.png)',
 						'background-size': 'contain',
-						'width': '83px',
+						'width': '75px',
 						'height': '233px'
 					});
-				}, 1000*45);
 			}
 
-			if(!inventory_has_item("Exit Key")){
-				add_clicker(400, 20, 71, 44, "clicker_exitkey", "clickers/Key.png", function(){
-					inventory_add_item("Exit Key", "clickers/Key.png");
-					remove_clicker("clicker_exitkey");
-					sessionStorage.beingChased = 1;
-					style_for_chase(2);
-					$(girl).css({
-						'background': 'url(clickers/GirlStanding.png)',
-						'background-size': 'contain',
-						'width': '83px',
-						'height': '233px'
+			// if(sessionStorage.beingChased == 0){
+			// 	setTimeout(function(){
+			// 		console.log('initiate phase one');
+			// 		style_for_chase(1);
+			// 		loopingviolins.setVolume(0.4);
+			// 		loopingviolins.setRate(1.5);
+			// 	}, 1000*15);
+
+			// 	setTimeout(function(){
+			// 		console.log('power up the bass cannon');
+			// 		style_for_chase(2);
+			// 		loopingviolins.setVolume(0.65);
+			// 		loopingviolins.setRate(2.5);
+			// 	}, 1000*30);
+
+			// 	setTimeout(function(){
+			// 		console.log('POWER UP THE BASS CANNON');
+			// 		girl_stand();
+			// 		loopingviolins.setVolume(1);
+			// 		loopingviolins.setRate(4);
+			// 	}, 1000*45);
+
+			// 	setTimeout(function(){
+			// 		lose("You died.");
+			// 	}, 1000*48);
+			// } else {
+			// 	style_for_chase(2);
+			// 	setTimeout(function(){
+			// 		lose("You went back.");
+			// 		girl_stand();
+			// 	}, 1000*2.5);
+			// }
+
+			// --------------- code for the safe past this line.
+			var safex = 310;
+			var safey = 140;
+
+			var sc = new Sound('sounds/PasswordCorrect.mp3');
+			var opensound = new Sound('sounds/SafeUnlock&Open.mp3');
+
+			function move_painting(){
+					$('#clicker_nobird').css({'top':'290px', 'left':'480px'});
+			}
+
+			function open_safe(){
+				opensound.play();
+				show_inline_view("clickers/SafeOpen.png", function(){
+					add_inline_clicker(130,200,71,44,"clicker_exitkey","clickers/Key.png", function(){
+						remove_clicker("clicker_safe");
+						add_clicker(safex,safey,93,93,"clicker_safe_emptied","clickers/SafeOpen.png", null);
+						inventory_add_item("Exit Key", "clickers/Key.png");
+						remove_inline_clicker("clicker_exitkey");
+						sessionStorage.beingChased = 1;
+						style_for_chase(2);
+						girl_stand();
+						hide_inline_view();
+						setTimeout(function(){
+							lose("You were caught.");
+						}, 1000*4);
 					});
 				});
 			}
+
+			if( !inventory_has_item("Exit Key") ) {
+				add_clicker(safex,safey,93,93,"clicker_safe","clickers/SafeLocked.png",function(){
+					show_inline_view("clickers/SafeLocked.png",function(){
+						console.log("you clicked the SAFE. nice job");
+						var corrects = 0;
+						function click_pad(n){
+							sc.play();
+							if(n == password[corrects]){
+								corrects++;
+							} else {
+								corrects = 0;
+							}
+							if(corrects == password.length){
+								hide_inline_view();
+								open_safe();
+							}
+						}
+						var xp = 65;
+						var yp = 70;
+						var wp = 34;
+						var hp = 35;
+						add_inline_clicker(xp,		yp,   wp, hp, "num_1", "", function(){		click_pad(1); });
+						add_inline_clicker(xp+wp,	yp,   wp, hp, "num_2", "", function(){		click_pad(2); });
+						add_inline_clicker(xp+wp*2,	yp,	  wp, hp, "num_3", "", function(){		click_pad(3); });
+						add_inline_clicker(xp,		yp+hp, wp, hp, "num_4", "", function(){		click_pad(4); });
+						add_inline_clicker(xp+wp,	yp+hp, wp, hp, "num_5", "", function(){		click_pad(5); });
+						add_inline_clicker(xp+wp*2,	yp+hp, wp, hp, "num_6", "", function(){		click_pad(6); });
+						add_inline_clicker(xp,		yp+hp*2, wp, hp, "num_7", "", function(){	click_pad(7); });
+						add_inline_clicker(xp+wp,	yp+hp*2, wp, hp, "num_8", "", function(){	click_pad(8); });
+						add_inline_clicker(xp+wp*2,	yp+hp*2, wp, hp, "num_9", "", function(){	click_pad(9); });
+					});
+				});
+			} else {
+				add_clicker(safex,safey,93,93,"clicker_safe_emptied","clickers/SafeOpen.png", null);
+			}
+
+			add_clicker(safex,safey,93,93,"clicker_nobird","clickers/PaintingNoBird.png",function(){
+				move_painting();
+			});
+
+			// ---------------------
 
 			
 		// =====================================================
