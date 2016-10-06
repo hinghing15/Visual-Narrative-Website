@@ -61,27 +61,6 @@ $(document).ready(function(){
 		$('.inline-clicker').css('border-bottom','1px dashed green');
 		$('.inline-clicker').css('border-right','1px dashed green');
 
-	/*	var togglebutt = document.createElement('button');
-		$(togglebutt).html('toggle chase');
-		$(togglebutt).css({
-			'position': 'absolute',
-			'display': 'block',
-			'top':'0px',
-			'left':'0px'
-		});
-		document.body.appendChild(togglebutt);
-		$(togglebutt).click(function(){
-			if (sessionStorage.beingChased == 2){
-				sessionStorage.beingChased = 0;
-			} else {
-				sessionStorage.beingChased++;
-			}
-			
-			init_chase(sessionStorage.beingChased);
-		});
-
-	*/
-
 		var losebutt = document.createElement('button');
 		$(losebutt).html('Die');
 		$(losebutt).css({

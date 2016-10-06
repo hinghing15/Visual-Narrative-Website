@@ -27,18 +27,24 @@
 					remove_clicker('clicker_chain');
 					console.log("leave time");
 					add_clicker(250,100,210,250,'clicker_exit','',function(){
+						sessionStorage.dead = "1";
+						sessionStorage.beingChased = 0;
 						location.href = 'out.html';
 					});
 				} else {
 					subtitle_set("It's locked.");
 				}
 			});
+
+			add_clicker(620,50,100,350,'clicker_gohall','',function(){
+				location.href = 'hallway.html';
+			});
 			
 		// =====================================================
 
 		// set where clicking on the side links makes you go
 			nav_left("");
-			nav_right("hallway.html");
+			nav_right("");
 			nav_up("");
 			nav_down("");
 
