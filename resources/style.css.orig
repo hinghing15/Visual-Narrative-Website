@@ -113,6 +113,7 @@ body {
 	height:100%;
 	/*background:#FF9999;*/
 }
+<<<<<<< HEAD
 #inline-text{
 	position:absolute;
 	  
@@ -120,12 +121,17 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 textarea {
    resize: none;
    rows=1;
 	white-space: nowrap;
 	overflow-x: scroll;
-}.inline-clicker {
+}
+=======
+>>>>>>> ae68e9f4ed0e6af4ec12f6aae76fe848c8723f09
+
+.inline-clicker {
 	position:absolute;
 	cursor:url('../mice/mouse_click.png'),default;
 	background-repeat: no-repeat;

@@ -1,17 +1,12 @@
-<!-- !!!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!!!!!!!!!! -->
-<!-- This is the framework file, if you want to create a new room, make COPY of this file! -->
-<!-- DO NOT EDIT THIS. ONLY MAKE COPIES OF IT. -->
-<!-- Be sure to delete this warning on any copies you make -->
-
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>&lrm;</title> <link rel="icon" href="favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
-	<audio id="creak" src="sounds/Creak.mp3" onended="leaveRoom()"></audio>
-		<script type="text/javascript">
+	<script type="text/javascript">
 	
 		var printSound = new Sound('sounds/Printer.mp3',1);
 		var correctSound = new Sound('sounds/PasswordCorrect.mp3',1);
@@ -56,7 +51,7 @@
 				remove_clicker("clicker_computer");
 				
 				show_inline_view("inlines/Monitor.png", function(){
-					var printButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;'><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					var printButton = $("<div style='top:85px'; left:'100px'; width:'60px'; height:'60px';><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
 					$('#inline-clickers').append(printButton);
 				});
 				addPrintButton();
@@ -72,10 +67,10 @@
 		{
 			console.log("Add print button");
 
-			add_clicker(450,130,100,90,"clicker_computer", "clickers/puzzleroom_e/Computer_Altered_Keyboard.png", function(){
+			add_clicker(200,200,100,100,"clicker_computer_print", "clickers/puzzleroom_e/Computer.png", function(){
 
 				show_inline_view("inlines/Monitor.png", function(){
-					var printButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;'><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					var printButton = $("<div style='top:85px'; left:'100px'; width:'60px'; height:'60px';><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
 					$('#inline-clickers').append(printButton);
 				});
 			});
@@ -83,35 +78,30 @@
 
 		}
 	</script>
-	<audio id="creak" src="sounds/Creak.mp3" onended="leaveRoom()"></audio>
 	<script>
-
-	function leaveRoom() {
-		location.href = 'basement_hallway.html';
-	}
-
 	$(document).ready(function(){
 
 		// change this to change the background image
 		// the dimensions should be 720px X 405px.
 		// ======================
-			picture_set("rooms/puzzleroom_e.png");
+			picture_set("rooms/sampleroom.png");
 		// ======================
 
-		
-		var lockedsound = new Sound("sounds/LockedDoor.mp3");
-		var openCabinetSound = new Sound("sounds/DrawerOpen.mp3",1);
-
-		// clickers go HERE
+		// clickerinos kids
 		// =====================================================
 
+			// very simple example: you can't go through the door unless you
+			// pick up the key on the table.
+			
+			
 			if(!sessionStorage.enteredPassword)
 				sessionStorage.enteredPassword = "0";
 			
+<<<<<<< HEAD
 			console.log(sessionStorage.enteredPassword);
 			if(sessionStorage.enteredPassword.localeCompare("0") == 0)
 			{
-				add_clicker(450,130,100,90,"clicker_computer", "clickers/puzzleroom_e/Computer_Altered_Keyboard.png", function(){
+				add_clicker(200,200,100,100,"clicker_computer", "clickers/puzzleroom_e/Computer.png", function(){
 
 				
 					currentOrder = [];
@@ -119,12 +109,12 @@
 					show_inline_view("inlines/Monitor.png", function(){
 						//container.appendChild(input);					
 									
-						add_inline_text_form(0,150,700,400,"password","textBox",function(){
+						add_inline_text_form(85,60,60,60,"password","textBox",function(){
 							console.log("you clicked password");
 							var textBox = document.getElementById('hiddeninput');
 							//console.log(textBox.value);
 						});
-						var submitButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;';><button type='button' id='submitButton' onclick='checkPassword()'>Submit</button></div>");
+						var submitButton = $("<div style='top:85px'; left:'60px'; width:'60px'; height:'60px';><button type='button' id='submitButton' onclick='checkPassword()'>Submit</button></div>");
 
 						//submitButton.setAttribute("onclick", checkPassword);
 						//console.log(document.getElementById("submitButton"));
@@ -137,78 +127,10 @@
 			{
 				addPrintButton();
 			}
-		
-			add_clicker(45,340,130,60,"clicker_gotrapdoor","",function(){
-				if(inventory_has_item("Basement Key")){
-					document.getElementById("creak").play();
-				} else {
-					subtitle_set("It's locked.");
-					lockedsound.play();
-				}
-			});
-
-			add_clicker(340,198,117/2,32/2,"clicker_showfamilyphoto","clickers/puzzleroom_e/Family-Picture-PlacedDown.png",function(){
-				show_inline_view("clickers/puzzleroom_e/Family-Picture-Expanded.png", function(){
-					console.log("what a happy family");
-				});
-			});
-			
-			function openCabinet()
-			{
-				openCabinetSound.play();
-				sessionStorage.fileOpened = "1";
-				remove_clicker("clicker_closed_cabinet");
-				add_clicker(45,210,120,120,"clicker_open_cabinet","clickers/puzzleroom_e/DrawerOpen.png",function(){
-
-				});
-				add_clicker(85,190,60,40,"papers","clickers/puzzleroom_e/Papers2.png",function(){
-					if(!sessionStorage.tookPaper)
-					{
-						sessionStorage.tookPaper = "1";
-						if(!inventory_has_item("paper"))
-							inventory_add_item("paper", "clickers/puzzleroom_e/SinglePaper.png");
-					}
-				});
-				
-			}
-			
-			if(!sessionStorage.fileOpened)
-				sessionStorage.fileOpened = "0";
-				
-			
-			if(sessionStorage.fileOpened.localeCompare("0") == 0)
-			{
-				add_clicker(50,210,120,100,"clicker_closed_cabinet","clickers/puzzleroom_e/DrawerClosed.png",function(){
-					console.log("open cabinet");
-					openCabinet();					
-				});
-			}
-			else
-			{
-				add_clicker(45,210,120,120,"clicker_open_cabinet","clickers/puzzleroom_e/DrawerOpen.png",function(){
-
-				});
-				add_clicker(85,190,60,40,"papers","clickers/puzzleroom_e/Papers2.png",function(){
-					if(!sessionStorage.tookPaper)
-					{
-						sessionStorage.tookPaper = "1";
-						if(!inventory_has_item("paper"))
-							inventory_add_item("paper", "clickers/puzzleroom_e/SinglePaper.png");
-					}
-				});
-			}
-			
-			correctOrder = [5,7,0,0,5];
-			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
-			delayAfterCorrect = 2000;
-			currentOrder = [];
-			soundIndex = 0;
-			
-			enteredCorrect = false;
-			
+=======
 
 
-			add_clicker(560,120,50,50,"clicker_phone", "clickers/PhoneReceiver2.png", function(){
+			add_clicker(200,200,100,100,"clicker_computer", "clickers/puzzleroom_e/Computer.png", function(){
 
 				//Phone button sounds
 				phoneSound_1 = new Sound("sounds/Phone1.mp3",1)
@@ -237,89 +159,25 @@
 				}
 				currentOrder = [];
 			
-				show_inline_view("clickers/PhoneNoReceiver2.png", function(){
+				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
 								
-					add_inline_clicker(82,30,35,40,"phone_1","",function(){
+					var input = document.createElement("input");
+					input.type = "text";
+					input.className = "css-class-name"; // set the CSS class
+					//container.appendChild(input);					
+								
+					add_inline_clicker(85,60,60,60,"phone_1","",function(){
 						console.log("you clicked phone_1");
 						stopSound(phoneSound_dialtone);
 						checkOrder(1);
 						if(!phoneSound_1.paused)
 							phoneSound_1.currentTime = 0;
-						phoneSound_1.play();
-
+						phoneSound_1.play();				
 					});
-					add_inline_clicker(117,30,33,40,"phone_2","",function(){
-						console.log("you clicked phone_2");
-						stopSound(phoneSound_dialtone);
-						checkOrder(2);
-						phoneSound_2.play();
-					});
-					add_inline_clicker(150,30,33,40,"phone_3","",function(){
-						console.log("you clicked phone_3");
-						stopSound(phoneSound_dialtone);						
-						checkOrder(3);
-						phoneSound_3.play();
-					});
-					add_inline_clicker(82,75,35,43,"phone_4","",function(){
-						console.log("you clicked phone_4");
-						stopSound(phoneSound_dialtone);
-						checkOrder(4);
-						phoneSound_4.play();
-					});
-					add_inline_clicker(117,75,33,43,"phone_5","",function(){
-						console.log("you clicked phone_5");
-						stopSound(phoneSound_dialtone);
-						checkOrder(5);
-						phoneSound_5.play();
-					});
-					add_inline_clicker(150,75,33,43,"phone_6","",function(){
-						console.log("you clicked phone_6");
-						stopSound(phoneSound_dialtone);
-						checkOrder(6);						
-						phoneSound_6.play();
-					});					
-					add_inline_clicker(82,118,35,40,"phone_7","",function(){
-						console.log("you clicked phone_7");
-						checkOrder(7);
-						stopSound(phoneSound_dialtone);
-						phoneSound_7.play();
-					});
-					add_inline_clicker(117,118,33,40,"phone_8","",function(){
-						console.log("you clicked phone_8");
-						checkOrder(8);						
-						stopSound(phoneSound_dialtone);
-						phoneSound_8.play();
-					});
-					add_inline_clicker(150,118,33,40,"phone_9","",function(){
-						console.log("you clicked phone_9");
-						stopSound(phoneSound_dialtone);
-						checkOrder(9);						
-						phoneSound_9.play();
-					});	
-					/*
-					add_inline_clicker(85,285,60,60,"phone_*","",function(){
-						console.log("you clicked phone_*");
-						checkOrder(-1);						
-						stopSound(phoneSound_dialtone);
-						//phoneSound_star.play();
-					});
-					*/
-					add_inline_clicker(117,160,33,43,"phone_0","",function(){
-						console.log("you clicked phone_0");
-						checkOrder(0);
-						stopSound(phoneSound_dialtone);
-						phoneSound_0.play();
-					});
-					/*
-					add_inline_clicker(245,285,60,60,"phone_#","",function(){
-						console.log("you clicked phone_#");
-						checkOrder(-1);						
-						stopSound(phoneSound_dialtone);
-						phoneSound_pound.play();
-					});					
-					*/
 				});
 			});
+>>>>>>> ae68e9f4ed0e6af4ec12f6aae76fe848c8723f09
+
 
 
 		// =====================================================
@@ -360,7 +218,7 @@
 				}           
 			}       
 			return true;
-		}
+		};
 		// Hide method from for-in loops
 		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 			
@@ -407,14 +265,14 @@
 			//this.Sound.src = "sounds/PhoneTone.mp3";
 			//play files in a row
 			//new Mp3Queue(sound, correctSounds);
-		}
+		};
 		
 		function playSound(index)
 		{
 			console.log(index);
 			currentSound = new Sound(correctSounds[index], 1);
 			currentSound.play();
-		}
+		};
 		
 		
 		function playNext(index)
@@ -426,7 +284,7 @@
 				correctSounds[i].addEventListener("ended",playNext(i));
 				//correctSounds[i].play();			
 			}
-		}
+		};
 		
 		function checkOrder(pressed)
 		{
@@ -469,7 +327,7 @@
 				}
 				console.log(currentOrder);
 			}
-		}
+		};
 		
 
 		
@@ -493,17 +351,7 @@
 
 			container.src = files[0];
 		};
-			
-			
-		// =====================================================
-
-		// set where clicking on the side links makes you go
-			nav_left("puzzleroom_n.html");
-			nav_right("puzzleroom_s.html");
-			nav_up("");
-			nav_down("");
-
-
+		
 	});
 	</script>
 	<script src="resources/postscript.js"></script>

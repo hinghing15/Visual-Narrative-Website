@@ -10,7 +10,18 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+	<audio id="dooropen" src="sounds/DoorOpen.mp3" onended="leaveRoom()"></audio>
 	<script>
+
+	function leaveRoom() {
+		if(outroom){
+			location.href = 'out/index.html';
+		}
+		else{
+			location.href = 'hallway.html';
+		}
+	}
+
 	$(document).ready(function(){
 
 		// change this to change the background image
@@ -24,6 +35,8 @@
 
 			var chainssound = new Sound('sounds/ChainsRattling.mp3');
 
+			outroom = false;
+
 			add_clicker(190,55,350,350,'clicker_chain','clickers/ChainLocked.png',function(){
 				if(inventory_has_item('Exit Key')){
 					remove_clicker('clicker_chain');
@@ -31,7 +44,8 @@
 					add_clicker(250,100,210,250,'clicker_exit','',function(){
 						sessionStorage.dead = "1";
 						sessionStorage.beingChased = 0;
-						location.href = 'out/index.html';
+						outroom = true;
+						document.getElementById("dooropen").play();
 					});
 				} else {
 					chainssound.play();
@@ -40,7 +54,8 @@
 			});
 
 			add_clicker(620,50,100,350,'clicker_gohall','',function(){
-				location.href = 'hallway.html';
+				outroom = false;
+				document.getElementById("dooropen").play();
 			});
 			
 		// =====================================================

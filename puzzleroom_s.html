@@ -10,7 +10,13 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+	<audio id="dooropen" src="sounds/DoorOpen.mp3" onended="leaveRoom()"></audio>
 	<script>
+
+	function leaveRoom() {
+		location.href = 'hallway_return.html';
+	}
+
 	$(document).ready(function(){
 
 		// change this to change the background image
@@ -23,7 +29,7 @@
 		// =====================================================
 
 			add_clicker(125,20,170,270,"clicker_gohall","",function(){
-				location.href = 'hallway_return.html';
+				document.getElementById("dooropen").play();
 			});
 			
 		// =====================================================

@@ -262,20 +262,7 @@ function remove_inline_clicker(id){
 	}
 }
 
-function add_inline_text_form(x, y, width, height, id, name, js, func){
-	//var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><textarea maxlength=10 rows=1 placeholder='Password' id='hiddeninput' name='hiddeninput'></textarea><input type='submit' id='save' name='save' value='Submit'/>");
-	var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><input type='text' name='textBox' placeholder='Password' /><input type='submit' name='button' id='button1' onclick='" + func + "' value='=' />");
-	clicker.click(js);
-	$('#inline-clickers').append(clicker);
-	console.log("inline text ADDED.");
-}
-
-function remove_inline_text(id){
-	if($("#"+id).hasClass("inline-text")){
-		$("#"+id).remove();
-	}
-}
-
+<<<<<<< HEAD
 function add_inline_text_form(x, y, width, height, id, name, js, func){
 	var clicker = $("<div id='wrapper' style='text-align:center;'><div class='inline-text' id='"+id+"' style='width:"+width+"px; height:"+height+"px; margin-left:"+x+"px; margin-top:"+y+"px'><input type='text' maxlength=10 rows=1 placeholder='Password' id='hiddeninput' name='hiddeninput' /></div></div>");
 	//var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><input type='text' name='textBox' placeholder='Password' /><input type='submit' name='button' id='button1' onclick='" + func + "' value='=' />");
@@ -291,6 +278,8 @@ function remove_inline_text(id){
 	}
 }
 
+=======
+>>>>>>> ae68e9f4ed0e6af4ec12f6aae76fe848c8723f09
 function clear_all_intervals() {
     for (var i = 1; i < 99999; i++)
         window.clearInterval(i);
@@ -400,7 +389,7 @@ function lose(deathString){ //lose the game on the spot.
 		background_set('#101010');
 		document.body.appendChild(blep);
 		setTimeout(function(){
-			$(blep).html("<p>"+deathString+"</p><p><a>Play Again?</a></p>");
+			$(blep).html("<p>"+deathString+"</p><p><a>Try Again?</a></p>");
 			$('a').click(function(){
 				sessionStorage.clear();
 				location.href = 'index.html';

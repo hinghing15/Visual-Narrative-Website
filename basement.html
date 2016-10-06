@@ -10,7 +10,15 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+	<audio id="dooropen" src="sounds/DoorOpen.mp3" onended="leaveRoom()"></audio>
 	<script>
+
+	function leaveRoom() {
+		location.href='basement_hallway.html';
+		// put the following code where you would normally say to leave
+		// document.getElementById("dooropen").play();
+	}
+
 	$(document).ready(function(){
 
 		// change this to change the background image
@@ -79,13 +87,21 @@
 			// }
 
 			// --------------- code for the safe past this line.
+
+			paintingMoved = false;
+
 			var safex = 310;
 			var safey = 140;
 
 			var sc = new Sound('sounds/PasswordCorrect.mp3');
 			var opensound = new Sound('sounds/SafeUnlock&Open.mp3');
+			var paintsound = new Sound('sounds/DropPainting.mp3');
 
 			function move_painting(){
+					if(!paintingMoved){
+						paintsound.play();
+						paintingMoved = true;
+					}
 					$('#clicker_nobird').css({'top':'290px', 'left':'480px'});
 			}
 

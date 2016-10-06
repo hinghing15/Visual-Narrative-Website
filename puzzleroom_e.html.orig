@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
-	<audio id="creak" src="sounds/Creak.mp3" onended="leaveRoom()"></audio>
+<<<<<<< HEAD
 		<script type="text/javascript">
 	
 		var printSound = new Sound('sounds/Printer.mp3',1);
@@ -83,7 +83,9 @@
 
 		}
 	</script>
+=======
 	<audio id="creak" src="sounds/Creak.mp3" onended="leaveRoom()"></audio>
+>>>>>>> ae68e9f4ed0e6af4ec12f6aae76fe848c8723f09
 	<script>
 
 	function leaveRoom() {
