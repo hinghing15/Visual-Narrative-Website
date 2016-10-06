@@ -114,11 +114,18 @@ body {
 	/*background:#FF9999;*/
 }
 #inline-text{
-	position:absolute;	
+	position:absolute;
+	  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 textarea {
    resize: none;
+   rows=1;
+	white-space: nowrap;
+	overflow-x: scroll;
 }
 
 .inline-clicker {

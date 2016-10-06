@@ -263,8 +263,9 @@ function remove_inline_clicker(id){
 }
 
 function add_inline_text_form(x, y, width, height, id, name, js, func){
-	//var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><textarea maxlength=10 rows=1 placeholder='Password' id='hiddeninput' name='hiddeninput'></textarea><input type='submit' id='save' name='save' value='Submit'/>");
-	var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><input type='text' name='textBox' placeholder='Password' /><input type='submit' name='button' id='button1' onclick='" + func + "' value='=' />");
+	var clicker = $("<div id='wrapper' style='text-align:center;'><div class='inline-text' id='"+id+"' style='width:"+width+"px; height:"+height+"px; margin-left:"+x+"px; margin-top:"+y+"px'><input type='text' maxlength=10 rows=1 placeholder='Password' id='hiddeninput' name='hiddeninput' /></div></div>");
+	//var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><input type='text' name='textBox' placeholder='Password' /><input type='submit' name='button' id='button1' onclick='" + func + "' value='=' />");
+	//var clicker = $("<div class='inline-text' name='" + name + "'id='"+id+"' style='top:"+y+"px; left:"+x+"px; width:"+width+"px; height:"+height+"px;'></div><input type='text' name='textBox' placeholder='Password' /><input type='submit' name='button' id='button1' onclick='" + func + "' value='=' />");
 	clicker.click(js);
 	$('#inline-clickers').append(clicker);
 	console.log("inline text ADDED.");

@@ -6,6 +6,78 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+	<script type="text/javascript">
+	
+		var printSound = new Sound('sounds/Printer.mp3',1);
+		var correctSound = new Sound('sounds/PasswordCorrect.mp3',1);
+		var incorrectSound = new Sound('sounds/PasswordIncorrect.mp3',1);
+		var cantPrintSound = new Sound('sounds/Interaction2.mp3',1);
+	
+		function checkPaper()
+		{
+			if(!sessionStorage.printed)
+			{
+				if(!sessionStorage.loadedPaper)
+				{
+					//Play error sound
+					cantPrintSound.play();
+				}
+				else
+				{
+					//Play printing sound
+					sessionStorage.printed = "1";
+					printSound.play();
+				}
+				
+			}
+			else
+			{
+				cantPrintSound.play();
+				//play error sound
+			}
+			
+			
+		}
+		function checkPassword()
+		{
+			var correctPass = "Jenny";
+			var pass = document.getElementById("hiddeninput").value;
+			if(pass.localeCompare(correctPass) == 0)
+			{
+				console.log("Correct password!")
+				correctSound.play();
+				sessionStorage.enteredPassword = "1";
+				hide_inline_view();
+				remove_clicker("clicker_computer");
+				
+				show_inline_view("inlines/Monitor.png", function(){
+					var printButton = $("<div style='top:85px'; left:'100px'; width:'60px'; height:'60px';><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					$('#inline-clickers').append(printButton);
+				});
+				addPrintButton();
+			}	
+			else
+			{
+				console.log("Incorrect password!")
+				incorrectSound.play();
+			}
+			
+		}
+		function addPrintButton()
+		{
+			console.log("Add print button");
+
+			add_clicker(200,200,100,100,"clicker_computer_print", "clickers/puzzleroom_e/Computer.png", function(){
+
+				show_inline_view("inlines/Monitor.png", function(){
+					var printButton = $("<div style='top:85px'; left:'100px'; width:'60px'; height:'60px';><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					$('#inline-clickers').append(printButton);
+				});
+			});
+			
+
+		}
+	</script>
 	<script>
 	$(document).ready(function(){
 
@@ -21,52 +93,40 @@
 			// very simple example: you can't go through the door unless you
 			// pick up the key on the table.
 			
+			
+			if(!sessionStorage.enteredPassword)
+				sessionStorage.enteredPassword = "0";
+			
+			console.log(sessionStorage.enteredPassword);
+			if(sessionStorage.enteredPassword.localeCompare("0") == 0)
+			{
+				add_clicker(200,200,100,100,"clicker_computer", "clickers/puzzleroom_e/Computer.png", function(){
 
-			
-			correctOrder = [5,7,0,0,5];
-			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
-			delayAfterCorrect = 2000;
-			currentOrder = [];
-			soundIndex = 0;
-			
-			enteredCorrect = false;
-			
+				
+					currentOrder = [];
+				
+					show_inline_view("inlines/Monitor.png", function(){
+						//container.appendChild(input);					
+									
+						add_inline_text_form(85,60,60,60,"password","textBox",function(){
+							console.log("you clicked password");
+							var textBox = document.getElementById('hiddeninput');
+							//console.log(textBox.value);
+						});
+						var submitButton = $("<div style='top:85px'; left:'60px'; width:'60px'; height:'60px';><button type='button' id='submitButton' onclick='checkPassword()'>Submit</button></div>");
 
-
-			add_clicker(200,200,100,100,"clicker_computer", "clickers/puzzleroom_e/Computer.png", function(){
-
-				//Phone button sounds
-				phoneSound_1 = new Sound("sounds/Phone1.mp3",1)
-				phoneSound_2 = new Sound("sounds/Phone2.mp3",1)
-				phoneSound_3 = new Sound("sounds/Phone3.mp3",1)
-				phoneSound_4 = new Sound("sounds/Phone4.mp3",1)
-				phoneSound_5 = new Sound("sounds/Phone5.mp3",1)
-				phoneSound_6 = new Sound("sounds/Phone6.mp3",1)
-				phoneSound_7 = new Sound("sounds/Phone7.mp3",1)
-				phoneSound_8 = new Sound("sounds/Phone8.mp3",1)
-				phoneSound_9 = new Sound("sounds/Phone9.mp3",1)
-				phoneSound_0 = new Sound("sounds/Phone0.mp3",1)
-				//phoneSound_star = new Sound("sounds/PhoneStar.mp3")
-				phoneSound_pound = new Sound("sounds/PhonePound.mp3")
-				//Phone interaction sounds
-				phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3", 1)
-			
-				currentOrder = [];
-			
-				show_inline_view("inlines/Monitor.png", function(){
-					//container.appendChild(input);					
-								
-					add_inline_text_form(85,60,60,60,"password","textBox",function(){
-						console.log("you clicked password");
-						var textBox = document.getElementById('password');
-						console.log(textBox.value);
+						//submitButton.setAttribute("onclick", checkPassword);
+						//console.log(document.getElementById("submitButton"));
+						//document.getElementById("submitButton").addEventListener("click",checkPassword);
+						$('#inline-clickers').append(submitButton);
 					});
 				});
-			});
-			function checkPassword()
-			{
-				console.log("Check password");
 			}
+			else
+			{
+				addPrintButton();
+			}
+
 
 
 		// =====================================================

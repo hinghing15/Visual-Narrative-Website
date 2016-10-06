@@ -29,7 +29,7 @@
 		// =====================================================
 
 			//SAFE CODE SAFE CODE SAFE CODE
-			var password = [1, 1, 1, 1];
+			var password = [5,4,5,5,3,7];
 			//SAFE CODE SAFE CODE SAFE CODE
 
 			var girl = document.createElement('div');
@@ -150,6 +150,303 @@
 
 			// ---------------------
 
+			
+			correctOrder = [1,1,1,8,1,6];
+			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
+			delayAfterCorrect = 2000;
+			currentOrder = [];
+			soundIndex = 0;
+			
+			enteredCorrect = false;
+			
+
+
+			add_clicker(510,140,60,60,"clicker_phone", "clickers/PhoneReceiver2.png", function(){
+
+				//Phone button sounds
+				phoneSound_1 = new Sound("sounds/Phone1.mp3",1)
+				phoneSound_2 = new Sound("sounds/Phone2.mp3",1)
+				phoneSound_3 = new Sound("sounds/Phone3.mp3",1)
+				phoneSound_4 = new Sound("sounds/Phone4.mp3",1)
+				phoneSound_5 = new Sound("sounds/Phone5.mp3",1)
+				phoneSound_6 = new Sound("sounds/Phone6.mp3",1)
+				phoneSound_7 = new Sound("sounds/Phone7.mp3",1)
+				phoneSound_8 = new Sound("sounds/Phone8.mp3",1)
+				phoneSound_9 = new Sound("sounds/Phone9.mp3",1)
+				phoneSound_0 = new Sound("sounds/Phone0.mp3",1)
+				//phoneSound_star = new Sound("sounds/PhoneStar.mp3")
+				phoneSound_pound = new Sound("sounds/PhonePound.mp3")
+				//Phone interaction sounds
+				phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3", 1)
+			
+				if(!enteredCorrect)
+				{
+					//if(phoneSound_dialtone.paused)
+						phoneSound_dialtone.playLooping();
+				}
+				else
+				{
+					playSoundsInOrder();
+				}
+				currentOrder = [];
+			
+				show_inline_view("clickers/PhoneNoReceiver2.png", function(){
+								
+					add_inline_clicker(82,30,35,40,"phone_1","",function(){
+						console.log("you clicked phone_1");
+						stopSound(phoneSound_dialtone);
+						checkOrder(1);
+						if(!phoneSound_1.paused)
+							phoneSound_1.currentTime = 0;
+						phoneSound_1.play();
+
+					});
+					add_inline_clicker(117,30,33,40,"phone_2","",function(){
+						console.log("you clicked phone_2");
+						stopSound(phoneSound_dialtone);
+						checkOrder(2);
+						phoneSound_2.play();
+					});
+					add_inline_clicker(150,30,33,40,"phone_3","",function(){
+						console.log("you clicked phone_3");
+						stopSound(phoneSound_dialtone);						
+						checkOrder(3);
+						phoneSound_3.play();
+					});
+					add_inline_clicker(82,75,35,43,"phone_4","",function(){
+						console.log("you clicked phone_4");
+						stopSound(phoneSound_dialtone);
+						checkOrder(4);
+						phoneSound_4.play();
+					});
+					add_inline_clicker(117,75,33,43,"phone_5","",function(){
+						console.log("you clicked phone_5");
+						stopSound(phoneSound_dialtone);
+						checkOrder(5);
+						phoneSound_5.play();
+					});
+					add_inline_clicker(150,75,33,43,"phone_6","",function(){
+						console.log("you clicked phone_6");
+						stopSound(phoneSound_dialtone);
+						checkOrder(6);						
+						phoneSound_6.play();
+					});					
+					add_inline_clicker(82,118,35,40,"phone_7","",function(){
+						console.log("you clicked phone_7");
+						checkOrder(7);
+						stopSound(phoneSound_dialtone);
+						phoneSound_7.play();
+					});
+					add_inline_clicker(117,118,33,40,"phone_8","",function(){
+						console.log("you clicked phone_8");
+						checkOrder(8);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_8.play();
+					});
+					add_inline_clicker(150,118,33,40,"phone_9","",function(){
+						console.log("you clicked phone_9");
+						stopSound(phoneSound_dialtone);
+						checkOrder(9);						
+						phoneSound_9.play();
+					});	
+					/*
+					add_inline_clicker(85,285,60,60,"phone_*","",function(){
+						console.log("you clicked phone_*");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						//phoneSound_star.play();
+					});
+					*/
+					add_inline_clicker(117,160,33,43,"phone_0","",function(){
+						console.log("you clicked phone_0");
+						checkOrder(0);
+						stopSound(phoneSound_dialtone);
+						phoneSound_0.play();
+					});
+					/*
+					add_inline_clicker(245,285,60,60,"phone_#","",function(){
+						console.log("you clicked phone_#");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_pound.play();
+					});					
+					*/
+				});
+			});
+
+
+		// =====================================================
+
+		// set where clicking on the side links makes you go
+			nav_left("");
+			nav_right("shablammy.html");
+			nav_up("");
+			nav_down("");
+		
+		//http://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript		
+		if(Array.prototype.equals)
+			console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+		// attach the .equals method to Array's prototype to call it on any array
+		Array.prototype.equals = function (array) 
+		{
+			// if the other array is a falsy value, return
+			if (!array)
+				return false;
+
+			// compare lengths - can save a lot of time 
+			if (this.length != array.length)
+				return false;
+
+			for (var i = 0, l=this.length; i < l; i++) 
+			{
+				// Check if we have nested arrays
+				if (this[i] instanceof Array && array[i] instanceof Array) 
+				{
+					// recurse into the nested arrays
+					if (!this[i].equals(array[i]))
+						return false;       
+				}           
+				else if (this[i] != array[i]) 
+				{ 
+					// Warning - two different object instances will never be equal: {x:20} != {x:20}
+					return false;   
+				}           
+			}       
+			return true;
+		}
+		// Hide method from for-in loops
+		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+			
+		function stopSound(snd)
+		{
+			if(!snd.paused)
+			{
+				snd.pause();
+				snd = 0;
+			}
+		};
+		function playSoundsInOrder()
+		{
+			console.log("play sounds in order");
+			
+			delay = 0;
+			delayStep = 1000;
+			
+			for(i = 0; i < correctSounds.length; i++)
+			{
+				
+				setTimeout(function()
+				{
+					playSound(soundIndex);
+					soundIndex++;
+					if(soundIndex >= correctSounds.length)
+					{
+						soundIndex = 0;
+						//setTimeout( playSoundsInOrder, delayAfterCorrect);
+					}
+				}, delay);
+				delay += delayStep;
+			}
+			
+			
+			
+			//correctSounds[0].addEventListener("ended",playNext[0]);
+			//correctSounds[0].play();
+			
+			
+			//whatever is your audio element
+			//var container = phoneSound_dialtone;
+			//var sound = new Audio();
+			//this.Sound.src = "sounds/PhoneTone.mp3";
+			//play files in a row
+			//new Mp3Queue(sound, correctSounds);
+		}
+		
+		function playSound(index)
+		{
+			console.log(index);
+			currentSound = new Sound(correctSounds[index], 1);
+			currentSound.play();
+		}
+		
+		
+		function playNext(index)
+		{
+			i = index + 1;
+			console.log("play next");
+			if(i < correctSounds.length)
+			{
+				correctSounds[i].addEventListener("ended",playNext(i));
+				//correctSounds[i].play();			
+			}
+		}
+		
+		function checkOrder(pressed)
+		{
+			if(!enteredCorrect)
+			{
+				currentOrder.push(pressed);
+
+			
+				//If order is long enough check if right or wrong
+				if(currentOrder.length > correctOrder.length)
+				{
+					currentOrder.shift();
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						setTimeout( playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
+						enteredCorrect = true;
+					}
+					/*
+					else
+					{
+						console.log("incorrect");
+						if(phoneSound_dialtone.paused)
+							phoneSound_dialtone.playLooping();
+						
+						currentOrder = [];
+					}
+					*/		
+				}
+				else if(currentOrder.length == correctOrder.length)
+				{
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						setTimeout(playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
+						enteredCorrect = true;
+					}
+				}
+				console.log(currentOrder);
+			}
+		}
+		
+
+		
+		//http://stackoverflow.com/questions/16916896/playing-two-files-in-a-row-in-javascript
+		var Mp3Queue = function(container, files) {
+			console.log("play sounds");
+			var index = 1;
+			if(!container || !container.tagName || container.tagName !== 'AUDIO')throw 'Invalid container';
+			if(!files || !files.length)throw 'Invalid files array';        
+
+			var playNext = function() {
+				if(index < files.length) {
+					container.src = files[index];
+					index += 1;
+				} else {
+					container.removeEventListener('ended', playNext, false);
+				}
+			};
+
+			container.addEventListener('ended', playNext);
+
+			container.src = files[0];
+		};
+			
 			
 		// =====================================================
 

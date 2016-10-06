@@ -25,7 +25,7 @@
 			// NOTE:
 			// THE SAFE HIDDEN BEHIND THE PICTURE IS FEATURE COMPLETE. IT DOES NOT NEED CHANGING.
 			// THE ONLY THING THAT WOULD NEED CHANGING IS THE ACTUAL CODE FOR THE SAFE ITSELF.
-			var password = [1, 1, 1, 1];
+			var password = [2,5,6,6,3];
 
 
 			var sc = new Sound('sounds/PasswordCorrect.mp3');
@@ -92,7 +92,33 @@
 			} else {
 				add_clicker(242,36,93,93,"clicker_safe_emptied","clickers/SafeOpen.png", null);
 			}
-
+			//
+			//add_clicker(170,250,180,80,"clicker_show_book_1","clickers/puzzleroom_w/DrawerClosed.png",function(){
+			//	show_inline_view("clickers/puzzleroom_n/BookOpen.png", function(){
+			//		console.log("what a happy family");
+			//	});
+			//});
+			if(sessionStorage.printed)
+			{
+				add_clicker(395,155,80,60,"printed_paper","clickers/puzzleroom_w/PrintedPage.png",function(){
+					show_inline_view("clickers/puzzleroom_w/PrintedPage.png", function(){
+					});
+				});
+			}
+			else if(sessionStorage.loadedPaper)
+			{
+				add_clicker(402,85,60,30,"printer_paper","clickers/puzzleroom_w/Paper.png",null);
+			}
+			add_clicker(370,80,120,90,"printer","",function(){
+				
+				if(inventory_has_item("paper"))
+				{
+					add_clicker(402,85,60,30,"printer_paper","clickers/puzzleroom_w/Paper.png",null);
+					sessionStorage.loadedPaper = "1";
+					inventory_remove_item("paper");
+				}
+			});
+			
 			add_clicker(242,36,93,93,"clicker_cagedbird","clickers/puzzleroom_w/BirdPainting.png",function(){
 				if(sessionStorage.safe_revealed == "false") {
 						paintsound.play();

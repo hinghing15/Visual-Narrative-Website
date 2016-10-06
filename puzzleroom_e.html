@@ -10,6 +10,78 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="resources/script.js"></script>
+		<script type="text/javascript">
+	
+		var printSound = new Sound('sounds/Printer.mp3',1);
+		var correctSound = new Sound('sounds/PasswordCorrect.mp3',1);
+		var incorrectSound = new Sound('sounds/PasswordIncorrect.mp3',1);
+		var cantPrintSound = new Sound('sounds/Interaction2.mp3',1);
+	
+		function checkPaper()
+		{
+			if(!sessionStorage.printed)
+			{
+				if(!sessionStorage.loadedPaper)
+				{
+					//Play error sound
+					cantPrintSound.play();
+				}
+				else
+				{
+					//Play printing sound
+					sessionStorage.printed = "1";
+					printSound.play();
+				}
+				
+			}
+			else
+			{
+				cantPrintSound.play();
+				//play error sound
+			}
+			
+			
+		}
+		function checkPassword()
+		{
+			var correctPass = "Jenny";
+			var pass = document.getElementById("hiddeninput").value;
+			if(pass.localeCompare(correctPass) == 0)
+			{
+				console.log("Correct password!")
+				correctSound.play();
+				sessionStorage.enteredPassword = "1";
+				hide_inline_view();
+				remove_clicker("clicker_computer");
+				
+				show_inline_view("inlines/Monitor.png", function(){
+					var printButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;'><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					$('#inline-clickers').append(printButton);
+				});
+				addPrintButton();
+			}	
+			else
+			{
+				console.log("Incorrect password!")
+				incorrectSound.play();
+			}
+			
+		}
+		function addPrintButton()
+		{
+			console.log("Add print button");
+
+			add_clicker(450,130,100,90,"clicker_computer", "clickers/puzzleroom_e/Computer_Altered_Keyboard.png", function(){
+
+				show_inline_view("inlines/Monitor.png", function(){
+					var printButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;'><button type='button' id='printButton' onclick='checkPaper()'>Print</button></div>");
+					$('#inline-clickers').append(printButton);
+				});
+			});
+			
+
+		}
+	</script>
 	<script>
 	$(document).ready(function(){
 
@@ -19,11 +91,46 @@
 			picture_set("rooms/puzzleroom_e.png");
 		// ======================
 
+		
 		var lockedsound = new Sound("sounds/LockedDoor.mp3");
+		var openCabinetSound = new Sound("sounds/DrawerOpen.mp3",1);
 
 		// clickers go HERE
 		// =====================================================
 
+			if(!sessionStorage.enteredPassword)
+				sessionStorage.enteredPassword = "0";
+			
+			console.log(sessionStorage.enteredPassword);
+			if(sessionStorage.enteredPassword.localeCompare("0") == 0)
+			{
+				add_clicker(450,130,100,90,"clicker_computer", "clickers/puzzleroom_e/Computer_Altered_Keyboard.png", function(){
+
+				
+					currentOrder = [];
+				
+					show_inline_view("inlines/Monitor.png", function(){
+						//container.appendChild(input);					
+									
+						add_inline_text_form(0,150,700,400,"password","textBox",function(){
+							console.log("you clicked password");
+							var textBox = document.getElementById('hiddeninput');
+							//console.log(textBox.value);
+						});
+						var submitButton = $("<div style='position:absolute; text-align:center; margin-top:200px; margin-left:260px; width:60px; height:60px;';><button type='button' id='submitButton' onclick='checkPassword()'>Submit</button></div>");
+
+						//submitButton.setAttribute("onclick", checkPassword);
+						//console.log(document.getElementById("submitButton"));
+						//document.getElementById("submitButton").addEventListener("click",checkPassword);
+						$('#inline-clickers').append(submitButton);
+					});
+				});
+			}
+			else
+			{
+				addPrintButton();
+			}
+		
 			add_clicker(45,340,130,60,"clicker_gotrapdoor","",function(){
 				if(inventory_has_item("Basement Key")){
 					location.href = 'basement_hallway.html';
@@ -33,11 +140,353 @@
 				}
 			});
 
-			add_clicker(420,198,117/2,32/2,"clicker_showfamilyphoto","clickers/puzzleroom_e/Family-Picture-PlacedDown.png",function(){
+			add_clicker(340,198,117/2,32/2,"clicker_showfamilyphoto","clickers/puzzleroom_e/Family-Picture-PlacedDown.png",function(){
 				show_inline_view("clickers/puzzleroom_e/Family-Picture-Expanded.png", function(){
 					console.log("what a happy family");
 				});
 			});
+			
+			function openCabinet()
+			{
+				openCabinetSound.play();
+				sessionStorage.fileOpened = "1";
+				remove_clicker("clicker_closed_cabinet");
+				add_clicker(45,210,120,120,"clicker_open_cabinet","clickers/puzzleroom_e/DrawerOpen.png",function(){
+
+				});
+				add_clicker(85,190,60,40,"papers","clickers/puzzleroom_e/Papers2.png",function(){
+					if(!sessionStorage.tookPaper)
+					{
+						sessionStorage.tookPaper = "1";
+						if(!inventory_has_item("paper"))
+							inventory_add_item("paper", "clickers/puzzleroom_e/SinglePaper.png");
+					}
+				});
+				
+			}
+			
+			if(!sessionStorage.fileOpened)
+				sessionStorage.fileOpened = "0";
+				
+			
+			if(sessionStorage.fileOpened.localeCompare("0") == 0)
+			{
+				add_clicker(50,210,120,100,"clicker_closed_cabinet","clickers/puzzleroom_e/DrawerClosed.png",function(){
+					console.log("open cabinet");
+					openCabinet();					
+				});
+			}
+			else
+			{
+				add_clicker(45,210,120,120,"clicker_open_cabinet","clickers/puzzleroom_e/DrawerOpen.png",function(){
+
+				});
+				add_clicker(85,190,60,40,"papers","clickers/puzzleroom_e/Papers2.png",function(){
+					if(!sessionStorage.tookPaper)
+					{
+						sessionStorage.tookPaper = "1";
+						if(!inventory_has_item("paper"))
+							inventory_add_item("paper", "clickers/puzzleroom_e/SinglePaper.png");
+					}
+				});
+			}
+			
+			correctOrder = [5,7,0,0,5];
+			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
+			delayAfterCorrect = 2000;
+			currentOrder = [];
+			soundIndex = 0;
+			
+			enteredCorrect = false;
+			
+
+
+			add_clicker(560,120,50,50,"clicker_phone", "clickers/PhoneReceiver2.png", function(){
+
+				//Phone button sounds
+				phoneSound_1 = new Sound("sounds/Phone1.mp3",1)
+				phoneSound_2 = new Sound("sounds/Phone2.mp3",1)
+				phoneSound_3 = new Sound("sounds/Phone3.mp3",1)
+				phoneSound_4 = new Sound("sounds/Phone4.mp3",1)
+				phoneSound_5 = new Sound("sounds/Phone5.mp3",1)
+				phoneSound_6 = new Sound("sounds/Phone6.mp3",1)
+				phoneSound_7 = new Sound("sounds/Phone7.mp3",1)
+				phoneSound_8 = new Sound("sounds/Phone8.mp3",1)
+				phoneSound_9 = new Sound("sounds/Phone9.mp3",1)
+				phoneSound_0 = new Sound("sounds/Phone0.mp3",1)
+				//phoneSound_star = new Sound("sounds/PhoneStar.mp3")
+				phoneSound_pound = new Sound("sounds/PhonePound.mp3")
+				//Phone interaction sounds
+				phoneSound_dialtone = new Sound("sounds/PhoneTone.mp3", 1)
+			
+				if(!enteredCorrect)
+				{
+					//if(phoneSound_dialtone.paused)
+						phoneSound_dialtone.playLooping();
+				}
+				else
+				{
+					playSoundsInOrder();
+				}
+				currentOrder = [];
+			
+				show_inline_view("clickers/PhoneNoReceiver2.png", function(){
+								
+					add_inline_clicker(82,30,35,40,"phone_1","",function(){
+						console.log("you clicked phone_1");
+						stopSound(phoneSound_dialtone);
+						checkOrder(1);
+						if(!phoneSound_1.paused)
+							phoneSound_1.currentTime = 0;
+						phoneSound_1.play();
+
+					});
+					add_inline_clicker(117,30,33,40,"phone_2","",function(){
+						console.log("you clicked phone_2");
+						stopSound(phoneSound_dialtone);
+						checkOrder(2);
+						phoneSound_2.play();
+					});
+					add_inline_clicker(150,30,33,40,"phone_3","",function(){
+						console.log("you clicked phone_3");
+						stopSound(phoneSound_dialtone);						
+						checkOrder(3);
+						phoneSound_3.play();
+					});
+					add_inline_clicker(82,75,35,43,"phone_4","",function(){
+						console.log("you clicked phone_4");
+						stopSound(phoneSound_dialtone);
+						checkOrder(4);
+						phoneSound_4.play();
+					});
+					add_inline_clicker(117,75,33,43,"phone_5","",function(){
+						console.log("you clicked phone_5");
+						stopSound(phoneSound_dialtone);
+						checkOrder(5);
+						phoneSound_5.play();
+					});
+					add_inline_clicker(150,75,33,43,"phone_6","",function(){
+						console.log("you clicked phone_6");
+						stopSound(phoneSound_dialtone);
+						checkOrder(6);						
+						phoneSound_6.play();
+					});					
+					add_inline_clicker(82,118,35,40,"phone_7","",function(){
+						console.log("you clicked phone_7");
+						checkOrder(7);
+						stopSound(phoneSound_dialtone);
+						phoneSound_7.play();
+					});
+					add_inline_clicker(117,118,33,40,"phone_8","",function(){
+						console.log("you clicked phone_8");
+						checkOrder(8);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_8.play();
+					});
+					add_inline_clicker(150,118,33,40,"phone_9","",function(){
+						console.log("you clicked phone_9");
+						stopSound(phoneSound_dialtone);
+						checkOrder(9);						
+						phoneSound_9.play();
+					});	
+					/*
+					add_inline_clicker(85,285,60,60,"phone_*","",function(){
+						console.log("you clicked phone_*");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						//phoneSound_star.play();
+					});
+					*/
+					add_inline_clicker(117,160,33,43,"phone_0","",function(){
+						console.log("you clicked phone_0");
+						checkOrder(0);
+						stopSound(phoneSound_dialtone);
+						phoneSound_0.play();
+					});
+					/*
+					add_inline_clicker(245,285,60,60,"phone_#","",function(){
+						console.log("you clicked phone_#");
+						checkOrder(-1);						
+						stopSound(phoneSound_dialtone);
+						phoneSound_pound.play();
+					});					
+					*/
+				});
+			});
+
+
+		// =====================================================
+
+		// set where clicking on the side links makes you go
+			nav_left("");
+			nav_right("shablammy.html");
+			nav_up("");
+			nav_down("");
+		
+		//http://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript		
+		if(Array.prototype.equals)
+			console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+		// attach the .equals method to Array's prototype to call it on any array
+		Array.prototype.equals = function (array) 
+		{
+			// if the other array is a falsy value, return
+			if (!array)
+				return false;
+
+			// compare lengths - can save a lot of time 
+			if (this.length != array.length)
+				return false;
+
+			for (var i = 0, l=this.length; i < l; i++) 
+			{
+				// Check if we have nested arrays
+				if (this[i] instanceof Array && array[i] instanceof Array) 
+				{
+					// recurse into the nested arrays
+					if (!this[i].equals(array[i]))
+						return false;       
+				}           
+				else if (this[i] != array[i]) 
+				{ 
+					// Warning - two different object instances will never be equal: {x:20} != {x:20}
+					return false;   
+				}           
+			}       
+			return true;
+		}
+		// Hide method from for-in loops
+		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+			
+		function stopSound(snd)
+		{
+			if(!snd.paused)
+			{
+				snd.pause();
+				snd = 0;
+			}
+		};
+		function playSoundsInOrder()
+		{
+			console.log("play sounds in order");
+			
+			delay = 0;
+			delayStep = 1000;
+			
+			for(i = 0; i < correctSounds.length; i++)
+			{
+				
+				setTimeout(function()
+				{
+					playSound(soundIndex);
+					soundIndex++;
+					if(soundIndex >= correctSounds.length)
+					{
+						soundIndex = 0;
+						//setTimeout( playSoundsInOrder, delayAfterCorrect);
+					}
+				}, delay);
+				delay += delayStep;
+			}
+			
+			
+			
+			//correctSounds[0].addEventListener("ended",playNext[0]);
+			//correctSounds[0].play();
+			
+			
+			//whatever is your audio element
+			//var container = phoneSound_dialtone;
+			//var sound = new Audio();
+			//this.Sound.src = "sounds/PhoneTone.mp3";
+			//play files in a row
+			//new Mp3Queue(sound, correctSounds);
+		}
+		
+		function playSound(index)
+		{
+			console.log(index);
+			currentSound = new Sound(correctSounds[index], 1);
+			currentSound.play();
+		}
+		
+		
+		function playNext(index)
+		{
+			i = index + 1;
+			console.log("play next");
+			if(i < correctSounds.length)
+			{
+				correctSounds[i].addEventListener("ended",playNext(i));
+				//correctSounds[i].play();			
+			}
+		}
+		
+		function checkOrder(pressed)
+		{
+			if(!enteredCorrect)
+			{
+				currentOrder.push(pressed);
+
+			
+				//If order is long enough check if right or wrong
+				if(currentOrder.length > correctOrder.length)
+				{
+					currentOrder.shift();
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						setTimeout( playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
+						enteredCorrect = true;
+					}
+					/*
+					else
+					{
+						console.log("incorrect");
+						if(phoneSound_dialtone.paused)
+							phoneSound_dialtone.playLooping();
+						
+						currentOrder = [];
+					}
+					*/		
+				}
+				else if(currentOrder.length == correctOrder.length)
+				{
+					if(currentOrder.equals(correctOrder))
+					{
+						console.log("correct");
+						setTimeout(playSoundsInOrder, delayAfterCorrect);
+						//playSoundsInOrder();
+						enteredCorrect = true;
+					}
+				}
+				console.log(currentOrder);
+			}
+		}
+		
+
+		
+		//http://stackoverflow.com/questions/16916896/playing-two-files-in-a-row-in-javascript
+		var Mp3Queue = function(container, files) {
+			console.log("play sounds");
+			var index = 1;
+			if(!container || !container.tagName || container.tagName !== 'AUDIO')throw 'Invalid container';
+			if(!files || !files.length)throw 'Invalid files array';        
+
+			var playNext = function() {
+				if(index < files.length) {
+					container.src = files[index];
+					index += 1;
+				} else {
+					container.removeEventListener('ended', playNext, false);
+				}
+			};
+
+			container.addEventListener('ended', playNext);
+
+			container.src = files[0];
+		};
+			
 			
 		// =====================================================
 
