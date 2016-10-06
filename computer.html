@@ -33,7 +33,7 @@
 			
 
 
-			add_clicker(50,100,50,50,"clicker_phone", "clickers/bigphone.gif", function(){
+			add_clicker(200,200,100,100,"clicker_computer", "clickers/puzzleroom_e/Computer.png", function(){
 
 				//Phone button sounds
 				phoneSound_1 = new Sound("sounds/Phone1.mp3",1)
@@ -64,81 +64,19 @@
 			
 				show_inline_view("inlines/cordless_feature_big_buttons.png", function(){
 								
+					var input = document.createElement("input");
+					input.type = "text";
+					input.className = "css-class-name"; // set the CSS class
+					//container.appendChild(input);					
+								
 					add_inline_clicker(85,60,60,60,"phone_1","",function(){
 						console.log("you clicked phone_1");
 						stopSound(phoneSound_dialtone);
 						checkOrder(1);
 						if(!phoneSound_1.paused)
 							phoneSound_1.currentTime = 0;
-						phoneSound_1.play();
-
+						phoneSound_1.play();				
 					});
-					add_inline_clicker(165,60,60,60,"phone_2","",function(){
-						console.log("you clicked phone_2");
-						stopSound(phoneSound_dialtone);
-						checkOrder(2);
-						phoneSound_2.play();
-					});
-					add_inline_clicker(245,60,60,60,"phone_3","",function(){
-						console.log("you clicked phone_3");
-						stopSound(phoneSound_dialtone);						
-						checkOrder(3);
-						phoneSound_3.play();
-					});
-					add_inline_clicker(85,135,60,60,"phone_4","",function(){
-						console.log("you clicked phone_4");
-						stopSound(phoneSound_dialtone);
-						checkOrder(4);
-						phoneSound_4.play();
-					});
-					add_inline_clicker(165,135,60,60,"phone_5","",function(){
-						console.log("you clicked phone_5");
-						stopSound(phoneSound_dialtone);
-						checkOrder(5);
-						phoneSound_5.play();
-					});
-					add_inline_clicker(245,135,60,60,"phone_6","",function(){
-						console.log("you clicked phone_6");
-						stopSound(phoneSound_dialtone);
-						checkOrder(6);						
-						phoneSound_6.play();
-					});					
-					add_inline_clicker(85,210,60,60,"phone_7","",function(){
-						console.log("you clicked phone_7");
-						checkOrder(7);
-						stopSound(phoneSound_dialtone);
-						phoneSound_7.play();
-					});
-					add_inline_clicker(165,210,60,60,"phone_8","",function(){
-						console.log("you clicked phone_8");
-						checkOrder(8);						
-						stopSound(phoneSound_dialtone);
-						phoneSound_8.play();
-					});
-					add_inline_clicker(245,210,60,60,"phone_9","",function(){
-						console.log("you clicked phone_9");
-						stopSound(phoneSound_dialtone);
-						checkOrder(9);						
-						phoneSound_9.play();
-					});	
-					add_inline_clicker(85,285,60,60,"phone_*","",function(){
-						console.log("you clicked phone_*");
-						checkOrder(-1);						
-						stopSound(phoneSound_dialtone);
-						//phoneSound_star.play();
-					});
-					add_inline_clicker(165,285,60,60,"phone_0","",function(){
-						console.log("you clicked phone_0");
-						checkOrder(0);
-						stopSound(phoneSound_dialtone);
-						phoneSound_0.play();
-					});
-					add_inline_clicker(245,285,60,60,"phone_#","",function(){
-						console.log("you clicked phone_#");
-						checkOrder(-1);						
-						stopSound(phoneSound_dialtone);
-						phoneSound_pound.play();
-					});					
 				});
 			});
 
@@ -181,7 +119,7 @@
 				}           
 			}       
 			return true;
-		}
+		};
 		// Hide method from for-in loops
 		Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 			
@@ -228,14 +166,14 @@
 			//this.Sound.src = "sounds/PhoneTone.mp3";
 			//play files in a row
 			//new Mp3Queue(sound, correctSounds);
-		}
+		};
 		
 		function playSound(index)
 		{
 			console.log(index);
 			currentSound = new Sound(correctSounds[index], 1);
 			currentSound.play();
-		}
+		};
 		
 		
 		function playNext(index)
@@ -247,7 +185,7 @@
 				correctSounds[i].addEventListener("ended",playNext(i));
 				//correctSounds[i].play();			
 			}
-		}
+		};
 		
 		function checkOrder(pressed)
 		{
@@ -290,7 +228,7 @@
 				}
 				console.log(currentOrder);
 			}
-		}
+		};
 		
 
 		
@@ -315,9 +253,6 @@
 			container.src = files[0];
 		};
 		
-		
-
-
 	});
 	</script>
 	<script src="resources/postscript.js"></script>

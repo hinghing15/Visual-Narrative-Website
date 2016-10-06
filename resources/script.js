@@ -141,13 +141,17 @@ function nav_down(link){
 	nav_make(2,link);
 }
 
-function Sound(src){
+function Sound(src, options){
 	this.Sound = new Audio();
 	this.Sound.src = src;
 	this.Sound.setAttribute("preload", "auto");
 	this.Sound.setAttribute("controls", "none");
 	this.Sound.style.display = "none";
-	document.body.appendChild(this.Sound);
+	if(options)
+		$('#inline-clickers').append(this.Sound);
+		//options[0].appendChild(this.Sound);
+	else
+		document.body.appendChild(this.Sound);
 
 
 	this.play = function(){
