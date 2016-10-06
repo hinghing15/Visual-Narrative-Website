@@ -53,38 +53,38 @@
 					});
 			}
 
-			// if(sessionStorage.beingChased == 0){
-			// 	setTimeout(function(){
-			// 		console.log('initiate phase one');
-			// 		style_for_chase(1);
-			// 		loopingviolins.setVolume(0.4);
-			// 		loopingviolins.setRate(1.5);
-			// 	}, 1000*15);
+			if(sessionStorage.beingChased == 0){
+				setTimeout(function(){
+					console.log('initiate phase one');
+					style_for_chase(1);
+					loopingviolins.setVolume(0.4);
+					loopingviolins.setRate(1.5);
+				}, 1000*20);
 
-			// 	setTimeout(function(){
-			// 		console.log('power up the bass cannon');
-			// 		style_for_chase(2);
-			// 		loopingviolins.setVolume(0.65);
-			// 		loopingviolins.setRate(2.5);
-			// 	}, 1000*30);
+				setTimeout(function(){
+					console.log('power up the bass cannon');
+					style_for_chase(2);
+					loopingviolins.setVolume(0.65);
+					loopingviolins.setRate(2.5);
+				}, 1000*40);
 
-			// 	setTimeout(function(){
-			// 		console.log('POWER UP THE BASS CANNON');
-			// 		girl_stand();
-			// 		loopingviolins.setVolume(1);
-			// 		loopingviolins.setRate(4);
-			// 	}, 1000*45);
+				setTimeout(function(){
+					console.log('POWER UP THE BASS CANNON');
+					girl_stand();
+					loopingviolins.setVolume(1);
+					loopingviolins.setRate(4);
+				}, 1000*60);
 
-			// 	setTimeout(function(){
-			// 		lose("You died.");
-			// 	}, 1000*48);
-			// } else {
-			// 	style_for_chase(2);
-			// 	setTimeout(function(){
-			// 		lose("You went back.");
-			// 		girl_stand();
-			// 	}, 1000*2.5);
-			// }
+				setTimeout(function(){
+					lose("You died.");
+				}, 1000*63);
+			} else {
+				style_for_chase(2);
+				setTimeout(function(){
+					lose("You went back.");
+					girl_stand();
+				}, 1000*2.5);
+			}
 
 			// --------------- code for the safe past this line.
 
@@ -168,7 +168,8 @@
 
 			
 			correctOrder = [1,1,1,8,1,6];
-			correctSounds = ["sounds/Phone2.mp3","sounds/Phone5.mp3","sounds/Phone6.mp3","sounds/Phone6.mp3","sounds/Phone3.mp3"];
+			// [5,4,5,5,3,7]
+			correctSounds = ["sounds/Phone5.mp3","sounds/Phone4.mp3","sounds/Phone5.mp3","sounds/Phone5.mp3","sounds/Phone3.mp3","sounds/Phone7.mp3"];
 			delayAfterCorrect = 2000;
 			currentOrder = [];
 			soundIndex = 0;

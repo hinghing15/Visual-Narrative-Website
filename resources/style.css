@@ -3,6 +3,7 @@
 * {
 	cursor:url('../mice/mouse_default.png'),default;
 	font-family: 'Averia Serif Libre', serif;
+	border: none;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 }
 /* 3840 x 2160 */
 /* 1080p? */
-#wrapper {
+#wrapper, #clapper {
 	width:720px;
 	height:405px;
 	border: 1px solid white;
@@ -22,6 +23,10 @@ body {
 	margin-top:-202px;
 	cursor:url('../mice/mouse_default.png');
 	transform-origin: 50% 50%;
+}
+
+#clapper {
+	border: none;
 }
 
 #picture {
@@ -104,6 +109,7 @@ body {
 	bottom:0px;
 
 	visibility: visible;
+	border: 0px;
 	/*image-rendering:pixelated;*/
 }
 
