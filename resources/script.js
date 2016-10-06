@@ -385,7 +385,7 @@ function lose(deathString){ //lose the game on the spot.
 		background_set('#101010');
 		document.body.appendChild(blep);
 		setTimeout(function(){
-			$(blep).html("<p>"+deathString+"</p><p><a>Try Again?</a></p>");
+			$(blep).html("<p>"+deathString+"</p><p><a>Play Again?</a></p>");
 			$('a').click(function(){
 				sessionStorage.clear();
 				location.href = 'index.html';
