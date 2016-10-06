@@ -30,6 +30,7 @@
 
 			var sc = new Sound('sounds/PasswordCorrect.mp3');
 			var opensound = new Sound('sounds/SafeUnlock&Open.mp3');
+			var paintsound = new Sound('sounds/DropPainting.mp3');
 
 
 			if(sessionStorage.safe_revealed == null ) {sessionStorage.safe_revealed = "false"; }
@@ -94,6 +95,7 @@
 
 			add_clicker(242,36,93,93,"clicker_cagedbird","clickers/puzzleroom_w/BirdPainting.png",function(){
 				if(sessionStorage.safe_revealed == "false") {
+						paintsound.play();
 						sessionStorage.safe_revealed = "true";
 				} else {
 						//sessionStorage.safe_revealed = "false";
